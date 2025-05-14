@@ -1,0 +1,8 @@
+gana*
+here*
+
+.venv
+**venv**
+
+.env*
+!.env*.example
