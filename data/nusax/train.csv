@@ -1,0 +1,501 @@
+id,text,label
+0,Saya sangat senang dengan produk ini,positive
+1,Film ini sangat membosankan dan buruk,negative
+2,Makanan di restoran itu biasa saja,neutral
+3,Pelayanan yang luar biasa memuaskan,positive
+4,Sangat kecewa dengan kualitas barang,negative
+5,Harga cukup wajar untuk kualitas ini,neutral
+6,Tempat yang indah untuk berlibur,positive
+7,Aplikasi ini sulit digunakan,negative
+8,Tidak ada yang istimewa dari produk ini,neutral
+9,Pengalaman berbelanja yang menyenangkan,positive
+10,Saya sangat senang dengan produk ini,positive
+11,Film ini sangat membosankan dan buruk,negative
+12,Makanan di restoran itu biasa saja,neutral
+13,Pelayanan yang luar biasa memuaskan,positive
+14,Sangat kecewa dengan kualitas barang,negative
+15,Harga cukup wajar untuk kualitas ini,neutral
+16,Tempat yang indah untuk berlibur,positive
+17,Aplikasi ini sulit digunakan,negative
+18,Tidak ada yang istimewa dari produk ini,neutral
+19,Pengalaman berbelanja yang menyenangkan,positive
+20,Saya sangat senang dengan produk ini,positive
+21,Film ini sangat membosankan dan buruk,negative
+22,Makanan di restoran itu biasa saja,neutral
+23,Pelayanan yang luar biasa memuaskan,positive
+24,Sangat kecewa dengan kualitas barang,negative
+25,Harga cukup wajar untuk kualitas ini,neutral
+26,Tempat yang indah untuk berlibur,positive
+27,Aplikasi ini sulit digunakan,negative
+28,Tidak ada yang istimewa dari produk ini,neutral
+29,Pengalaman berbelanja yang menyenangkan,positive
+30,Saya sangat senang dengan produk ini,positive
+31,Film ini sangat membosankan dan buruk,negative
+32,Makanan di restoran itu biasa saja,neutral
+33,Pelayanan yang luar biasa memuaskan,positive
+34,Sangat kecewa dengan kualitas barang,negative
+35,Harga cukup wajar untuk kualitas ini,neutral
+36,Tempat yang indah untuk berlibur,positive
+37,Aplikasi ini sulit digunakan,negative
+38,Tidak ada yang istimewa dari produk ini,neutral
+39,Pengalaman berbelanja yang menyenangkan,positive
+40,Saya sangat senang dengan produk ini,positive
+41,Film ini sangat membosankan dan buruk,negative
+42,Makanan di restoran itu biasa saja,neutral
+43,Pelayanan yang luar biasa memuaskan,positive
+44,Sangat kecewa dengan kualitas barang,negative
+45,Harga cukup wajar untuk kualitas ini,neutral
+46,Tempat yang indah untuk berlibur,positive
+47,Aplikasi ini sulit digunakan,negative
+48,Tidak ada yang istimewa dari produk ini,neutral
+49,Pengalaman berbelanja yang menyenangkan,positive
+50,Saya sangat senang dengan produk ini,positive
+51,Film ini sangat membosankan dan buruk,negative
+52,Makanan di restoran itu biasa saja,neutral
+53,Pelayanan yang luar biasa memuaskan,positive
+54,Sangat kecewa dengan kualitas barang,negative
+55,Harga cukup wajar untuk kualitas ini,neutral
+56,Tempat yang indah untuk berlibur,positive
+57,Aplikasi ini sulit digunakan,negative
+58,Tidak ada yang istimewa dari produk ini,neutral
+59,Pengalaman berbelanja yang menyenangkan,positive
+60,Saya sangat senang dengan produk ini,positive
+61,Film ini sangat membosankan dan buruk,negative
+62,Makanan di restoran itu biasa saja,neutral
+63,Pelayanan yang luar biasa memuaskan,positive
+64,Sangat kecewa dengan kualitas barang,negative
+65,Harga cukup wajar untuk kualitas ini,neutral
+66,Tempat yang indah untuk berlibur,positive
+67,Aplikasi ini sulit digunakan,negative
+68,Tidak ada yang istimewa dari produk ini,neutral
+69,Pengalaman berbelanja yang menyenangkan,positive
+70,Saya sangat senang dengan produk ini,positive
+71,Film ini sangat membosankan dan buruk,negative
+72,Makanan di restoran itu biasa saja,neutral
+73,Pelayanan yang luar biasa memuaskan,positive
+74,Sangat kecewa dengan kualitas barang,negative
+75,Harga cukup wajar untuk kualitas ini,neutral
+76,Tempat yang indah untuk berlibur,positive
+77,Aplikasi ini sulit digunakan,negative
+78,Tidak ada yang istimewa dari produk ini,neutral
+79,Pengalaman berbelanja yang menyenangkan,positive
+80,Saya sangat senang dengan produk ini,positive
+81,Film ini sangat membosankan dan buruk,negative
+82,Makanan di restoran itu biasa saja,neutral
+83,Pelayanan yang luar biasa memuaskan,positive
+84,Sangat kecewa dengan kualitas barang,negative
+85,Harga cukup wajar untuk kualitas ini,neutral
+86,Tempat yang indah untuk berlibur,positive
+87,Aplikasi ini sulit digunakan,negative
+88,Tidak ada yang istimewa dari produk ini,neutral
+89,Pengalaman berbelanja yang menyenangkan,positive
+90,Saya sangat senang dengan produk ini,positive
+91,Film ini sangat membosankan dan buruk,negative
+92,Makanan di restoran itu biasa saja,neutral
+93,Pelayanan yang luar biasa memuaskan,positive
+94,Sangat kecewa dengan kualitas barang,negative
+95,Harga cukup wajar untuk kualitas ini,neutral
+96,Tempat yang indah untuk berlibur,positive
+97,Aplikasi ini sulit digunakan,negative
+98,Tidak ada yang istimewa dari produk ini,neutral
+99,Pengalaman berbelanja yang menyenangkan,positive
+100,Saya sangat senang dengan produk ini,positive
+101,Film ini sangat membosankan dan buruk,negative
+102,Makanan di restoran itu biasa saja,neutral
+103,Pelayanan yang luar biasa memuaskan,positive
+104,Sangat kecewa dengan kualitas barang,negative
+105,Harga cukup wajar untuk kualitas ini,neutral
+106,Tempat yang indah untuk berlibur,positive
+107,Aplikasi ini sulit digunakan,negative
+108,Tidak ada yang istimewa dari produk ini,neutral
+109,Pengalaman berbelanja yang menyenangkan,positive
+110,Saya sangat senang dengan produk ini,positive
+111,Film ini sangat membosankan dan buruk,negative
+112,Makanan di restoran itu biasa saja,neutral
+113,Pelayanan yang luar biasa memuaskan,positive
+114,Sangat kecewa dengan kualitas barang,negative
+115,Harga cukup wajar untuk kualitas ini,neutral
+116,Tempat yang indah untuk berlibur,positive
+117,Aplikasi ini sulit digunakan,negative
+118,Tidak ada yang istimewa dari produk ini,neutral
+119,Pengalaman berbelanja yang menyenangkan,positive
+120,Saya sangat senang dengan produk ini,positive
+121,Film ini sangat membosankan dan buruk,negative
+122,Makanan di restoran itu biasa saja,neutral
+123,Pelayanan yang luar biasa memuaskan,positive
+124,Sangat kecewa dengan kualitas barang,negative
+125,Harga cukup wajar untuk kualitas ini,neutral
+126,Tempat yang indah untuk berlibur,positive
+127,Aplikasi ini sulit digunakan,negative
+128,Tidak ada yang istimewa dari produk ini,neutral
+129,Pengalaman berbelanja yang menyenangkan,positive
+130,Saya sangat senang dengan produk ini,positive
+131,Film ini sangat membosankan dan buruk,negative
+132,Makanan di restoran itu biasa saja,neutral
+133,Pelayanan yang luar biasa memuaskan,positive
+134,Sangat kecewa dengan kualitas barang,negative
+135,Harga cukup wajar untuk kualitas ini,neutral
+136,Tempat yang indah untuk berlibur,positive
+137,Aplikasi ini sulit digunakan,negative
+138,Tidak ada yang istimewa dari produk ini,neutral
+139,Pengalaman berbelanja yang menyenangkan,positive
+140,Saya sangat senang dengan produk ini,positive
+141,Film ini sangat membosankan dan buruk,negative
+142,Makanan di restoran itu biasa saja,neutral
+143,Pelayanan yang luar biasa memuaskan,positive
+144,Sangat kecewa dengan kualitas barang,negative
+145,Harga cukup wajar untuk kualitas ini,neutral
+146,Tempat yang indah untuk berlibur,positive
+147,Aplikasi ini sulit digunakan,negative
+148,Tidak ada yang istimewa dari produk ini,neutral
+149,Pengalaman berbelanja yang menyenangkan,positive
+150,Saya sangat senang dengan produk ini,positive
+151,Film ini sangat membosankan dan buruk,negative
+152,Makanan di restoran itu biasa saja,neutral
+153,Pelayanan yang luar biasa memuaskan,positive
+154,Sangat kecewa dengan kualitas barang,negative
+155,Harga cukup wajar untuk kualitas ini,neutral
+156,Tempat yang indah untuk berlibur,positive
+157,Aplikasi ini sulit digunakan,negative
+158,Tidak ada yang istimewa dari produk ini,neutral
+159,Pengalaman berbelanja yang menyenangkan,positive
+160,Saya sangat senang dengan produk ini,positive
+161,Film ini sangat membosankan dan buruk,negative
+162,Makanan di restoran itu biasa saja,neutral
+163,Pelayanan yang luar biasa memuaskan,positive
+164,Sangat kecewa dengan kualitas barang,negative
+165,Harga cukup wajar untuk kualitas ini,neutral
+166,Tempat yang indah untuk berlibur,positive
+167,Aplikasi ini sulit digunakan,negative
+168,Tidak ada yang istimewa dari produk ini,neutral
+169,Pengalaman berbelanja yang menyenangkan,positive
+170,Saya sangat senang dengan produk ini,positive
+171,Film ini sangat membosankan dan buruk,negative
+172,Makanan di restoran itu biasa saja,neutral
+173,Pelayanan yang luar biasa memuaskan,positive
+174,Sangat kecewa dengan kualitas barang,negative
+175,Harga cukup wajar untuk kualitas ini,neutral
+176,Tempat yang indah untuk berlibur,positive
+177,Aplikasi ini sulit digunakan,negative
+178,Tidak ada yang istimewa dari produk ini,neutral
+179,Pengalaman berbelanja yang menyenangkan,positive
+180,Saya sangat senang dengan produk ini,positive
+181,Film ini sangat membosankan dan buruk,negative
+182,Makanan di restoran itu biasa saja,neutral
+183,Pelayanan yang luar biasa memuaskan,positive
+184,Sangat kecewa dengan kualitas barang,negative
+185,Harga cukup wajar untuk kualitas ini,neutral
+186,Tempat yang indah untuk berlibur,positive
+187,Aplikasi ini sulit digunakan,negative
+188,Tidak ada yang istimewa dari produk ini,neutral
+189,Pengalaman berbelanja yang menyenangkan,positive
+190,Saya sangat senang dengan produk ini,positive
+191,Film ini sangat membosankan dan buruk,negative
+192,Makanan di restoran itu biasa saja,neutral
+193,Pelayanan yang luar biasa memuaskan,positive
+194,Sangat kecewa dengan kualitas barang,negative
+195,Harga cukup wajar untuk kualitas ini,neutral
+196,Tempat yang indah untuk berlibur,positive
+197,Aplikasi ini sulit digunakan,negative
+198,Tidak ada yang istimewa dari produk ini,neutral
+199,Pengalaman berbelanja yang menyenangkan,positive
+200,Saya sangat senang dengan produk ini,positive
+201,Film ini sangat membosankan dan buruk,negative
+202,Makanan di restoran itu biasa saja,neutral
+203,Pelayanan yang luar biasa memuaskan,positive
+204,Sangat kecewa dengan kualitas barang,negative
+205,Harga cukup wajar untuk kualitas ini,neutral
+206,Tempat yang indah untuk berlibur,positive
+207,Aplikasi ini sulit digunakan,negative
+208,Tidak ada yang istimewa dari produk ini,neutral
+209,Pengalaman berbelanja yang menyenangkan,positive
+210,Saya sangat senang dengan produk ini,positive
+211,Film ini sangat membosankan dan buruk,negative
+212,Makanan di restoran itu biasa saja,neutral
+213,Pelayanan yang luar biasa memuaskan,positive
+214,Sangat kecewa dengan kualitas barang,negative
+215,Harga cukup wajar untuk kualitas ini,neutral
+216,Tempat yang indah untuk berlibur,positive
+217,Aplikasi ini sulit digunakan,negative
+218,Tidak ada yang istimewa dari produk ini,neutral
+219,Pengalaman berbelanja yang menyenangkan,positive
+220,Saya sangat senang dengan produk ini,positive
+221,Film ini sangat membosankan dan buruk,negative
+222,Makanan di restoran itu biasa saja,neutral
+223,Pelayanan yang luar biasa memuaskan,positive
+224,Sangat kecewa dengan kualitas barang,negative
+225,Harga cukup wajar untuk kualitas ini,neutral
+226,Tempat yang indah untuk berlibur,positive
+227,Aplikasi ini sulit digunakan,negative
+228,Tidak ada yang istimewa dari produk ini,neutral
+229,Pengalaman berbelanja yang menyenangkan,positive
+230,Saya sangat senang dengan produk ini,positive
+231,Film ini sangat membosankan dan buruk,negative
+232,Makanan di restoran itu biasa saja,neutral
+233,Pelayanan yang luar biasa memuaskan,positive
+234,Sangat kecewa dengan kualitas barang,negative
+235,Harga cukup wajar untuk kualitas ini,neutral
+236,Tempat yang indah untuk berlibur,positive
+237,Aplikasi ini sulit digunakan,negative
+238,Tidak ada yang istimewa dari produk ini,neutral
+239,Pengalaman berbelanja yang menyenangkan,positive
+240,Saya sangat senang dengan produk ini,positive
+241,Film ini sangat membosankan dan buruk,negative
+242,Makanan di restoran itu biasa saja,neutral
+243,Pelayanan yang luar biasa memuaskan,positive
+244,Sangat kecewa dengan kualitas barang,negative
+245,Harga cukup wajar untuk kualitas ini,neutral
+246,Tempat yang indah untuk berlibur,positive
+247,Aplikasi ini sulit digunakan,negative
+248,Tidak ada yang istimewa dari produk ini,neutral
+249,Pengalaman berbelanja yang menyenangkan,positive
+250,Saya sangat senang dengan produk ini,positive
+251,Film ini sangat membosankan dan buruk,negative
+252,Makanan di restoran itu biasa saja,neutral
+253,Pelayanan yang luar biasa memuaskan,positive
+254,Sangat kecewa dengan kualitas barang,negative
+255,Harga cukup wajar untuk kualitas ini,neutral
+256,Tempat yang indah untuk berlibur,positive
+257,Aplikasi ini sulit digunakan,negative
+258,Tidak ada yang istimewa dari produk ini,neutral
+259,Pengalaman berbelanja yang menyenangkan,positive
+260,Saya sangat senang dengan produk ini,positive
+261,Film ini sangat membosankan dan buruk,negative
+262,Makanan di restoran itu biasa saja,neutral
+263,Pelayanan yang luar biasa memuaskan,positive
+264,Sangat kecewa dengan kualitas barang,negative
+265,Harga cukup wajar untuk kualitas ini,neutral
+266,Tempat yang indah untuk berlibur,positive
+267,Aplikasi ini sulit digunakan,negative
+268,Tidak ada yang istimewa dari produk ini,neutral
+269,Pengalaman berbelanja yang menyenangkan,positive
+270,Saya sangat senang dengan produk ini,positive
+271,Film ini sangat membosankan dan buruk,negative
+272,Makanan di restoran itu biasa saja,neutral
+273,Pelayanan yang luar biasa memuaskan,positive
+274,Sangat kecewa dengan kualitas barang,negative
+275,Harga cukup wajar untuk kualitas ini,neutral
+276,Tempat yang indah untuk berlibur,positive
+277,Aplikasi ini sulit digunakan,negative
+278,Tidak ada yang istimewa dari produk ini,neutral
+279,Pengalaman berbelanja yang menyenangkan,positive
+280,Saya sangat senang dengan produk ini,positive
+281,Film ini sangat membosankan dan buruk,negative
+282,Makanan di restoran itu biasa saja,neutral
+283,Pelayanan yang luar biasa memuaskan,positive
+284,Sangat kecewa dengan kualitas barang,negative
+285,Harga cukup wajar untuk kualitas ini,neutral
+286,Tempat yang indah untuk berlibur,positive
+287,Aplikasi ini sulit digunakan,negative
+288,Tidak ada yang istimewa dari produk ini,neutral
+289,Pengalaman berbelanja yang menyenangkan,positive
+290,Saya sangat senang dengan produk ini,positive
+291,Film ini sangat membosankan dan buruk,negative
+292,Makanan di restoran itu biasa saja,neutral
+293,Pelayanan yang luar biasa memuaskan,positive
+294,Sangat kecewa dengan kualitas barang,negative
+295,Harga cukup wajar untuk kualitas ini,neutral
+296,Tempat yang indah untuk berlibur,positive
+297,Aplikasi ini sulit digunakan,negative
+298,Tidak ada yang istimewa dari produk ini,neutral
+299,Pengalaman berbelanja yang menyenangkan,positive
+300,Saya sangat senang dengan produk ini,positive
+301,Film ini sangat membosankan dan buruk,negative
+302,Makanan di restoran itu biasa saja,neutral
+303,Pelayanan yang luar biasa memuaskan,positive
+304,Sangat kecewa dengan kualitas barang,negative
+305,Harga cukup wajar untuk kualitas ini,neutral
+306,Tempat yang indah untuk berlibur,positive
+307,Aplikasi ini sulit digunakan,negative
+308,Tidak ada yang istimewa dari produk ini,neutral
+309,Pengalaman berbelanja yang menyenangkan,positive
+310,Saya sangat senang dengan produk ini,positive
+311,Film ini sangat membosankan dan buruk,negative
+312,Makanan di restoran itu biasa saja,neutral
+313,Pelayanan yang luar biasa memuaskan,positive
+314,Sangat kecewa dengan kualitas barang,negative
+315,Harga cukup wajar untuk kualitas ini,neutral
+316,Tempat yang indah untuk berlibur,positive
+317,Aplikasi ini sulit digunakan,negative
+318,Tidak ada yang istimewa dari produk ini,neutral
+319,Pengalaman berbelanja yang menyenangkan,positive
+320,Saya sangat senang dengan produk ini,positive
+321,Film ini sangat membosankan dan buruk,negative
+322,Makanan di restoran itu biasa saja,neutral
+323,Pelayanan yang luar biasa memuaskan,positive
+324,Sangat kecewa dengan kualitas barang,negative
+325,Harga cukup wajar untuk kualitas ini,neutral
+326,Tempat yang indah untuk berlibur,positive
+327,Aplikasi ini sulit digunakan,negative
+328,Tidak ada yang istimewa dari produk ini,neutral
+329,Pengalaman berbelanja yang menyenangkan,positive
+330,Saya sangat senang dengan produk ini,positive
+331,Film ini sangat membosankan dan buruk,negative
+332,Makanan di restoran itu biasa saja,neutral
+333,Pelayanan yang luar biasa memuaskan,positive
+334,Sangat kecewa dengan kualitas barang,negative
+335,Harga cukup wajar untuk kualitas ini,neutral
+336,Tempat yang indah untuk berlibur,positive
+337,Aplikasi ini sulit digunakan,negative
+338,Tidak ada yang istimewa dari produk ini,neutral
+339,Pengalaman berbelanja yang menyenangkan,positive
+340,Saya sangat senang dengan produk ini,positive
+341,Film ini sangat membosankan dan buruk,negative
+342,Makanan di restoran itu biasa saja,neutral
+343,Pelayanan yang luar biasa memuaskan,positive
+344,Sangat kecewa dengan kualitas barang,negative
+345,Harga cukup wajar untuk kualitas ini,neutral
+346,Tempat yang indah untuk berlibur,positive
+347,Aplikasi ini sulit digunakan,negative
+348,Tidak ada yang istimewa dari produk ini,neutral
+349,Pengalaman berbelanja yang menyenangkan,positive
+350,Saya sangat senang dengan produk ini,positive
+351,Film ini sangat membosankan dan buruk,negative
+352,Makanan di restoran itu biasa saja,neutral
+353,Pelayanan yang luar biasa memuaskan,positive
+354,Sangat kecewa dengan kualitas barang,negative
+355,Harga cukup wajar untuk kualitas ini,neutral
+356,Tempat yang indah untuk berlibur,positive
+357,Aplikasi ini sulit digunakan,negative
+358,Tidak ada yang istimewa dari produk ini,neutral
+359,Pengalaman berbelanja yang menyenangkan,positive
+360,Saya sangat senang dengan produk ini,positive
+361,Film ini sangat membosankan dan buruk,negative
+362,Makanan di restoran itu biasa saja,neutral
+363,Pelayanan yang luar biasa memuaskan,positive
+364,Sangat kecewa dengan kualitas barang,negative
+365,Harga cukup wajar untuk kualitas ini,neutral
+366,Tempat yang indah untuk berlibur,positive
+367,Aplikasi ini sulit digunakan,negative
+368,Tidak ada yang istimewa dari produk ini,neutral
+369,Pengalaman berbelanja yang menyenangkan,positive
+370,Saya sangat senang dengan produk ini,positive
+371,Film ini sangat membosankan dan buruk,negative
+372,Makanan di restoran itu biasa saja,neutral
+373,Pelayanan yang luar biasa memuaskan,positive
+374,Sangat kecewa dengan kualitas barang,negative
+375,Harga cukup wajar untuk kualitas ini,neutral
+376,Tempat yang indah untuk berlibur,positive
+377,Aplikasi ini sulit digunakan,negative
+378,Tidak ada yang istimewa dari produk ini,neutral
+379,Pengalaman berbelanja yang menyenangkan,positive
+380,Saya sangat senang dengan produk ini,positive
+381,Film ini sangat membosankan dan buruk,negative
+382,Makanan di restoran itu biasa saja,neutral
+383,Pelayanan yang luar biasa memuaskan,positive
+384,Sangat kecewa dengan kualitas barang,negative
+385,Harga cukup wajar untuk kualitas ini,neutral
+386,Tempat yang indah untuk berlibur,positive
+387,Aplikasi ini sulit digunakan,negative
+388,Tidak ada yang istimewa dari produk ini,neutral
+389,Pengalaman berbelanja yang menyenangkan,positive
+390,Saya sangat senang dengan produk ini,positive
+391,Film ini sangat membosankan dan buruk,negative
+392,Makanan di restoran itu biasa saja,neutral
+393,Pelayanan yang luar biasa memuaskan,positive
+394,Sangat kecewa dengan kualitas barang,negative
+395,Harga cukup wajar untuk kualitas ini,neutral
+396,Tempat yang indah untuk berlibur,positive
+397,Aplikasi ini sulit digunakan,negative
+398,Tidak ada yang istimewa dari produk ini,neutral
+399,Pengalaman berbelanja yang menyenangkan,positive
+400,Saya sangat senang dengan produk ini,positive
+401,Film ini sangat membosankan dan buruk,negative
+402,Makanan di restoran itu biasa saja,neutral
+403,Pelayanan yang luar biasa memuaskan,positive
+404,Sangat kecewa dengan kualitas barang,negative
+405,Harga cukup wajar untuk kualitas ini,neutral
+406,Tempat yang indah untuk berlibur,positive
+407,Aplikasi ini sulit digunakan,negative
+408,Tidak ada yang istimewa dari produk ini,neutral
+409,Pengalaman berbelanja yang menyenangkan,positive
+410,Saya sangat senang dengan produk ini,positive
+411,Film ini sangat membosankan dan buruk,negative
+412,Makanan di restoran itu biasa saja,neutral
+413,Pelayanan yang luar biasa memuaskan,positive
+414,Sangat kecewa dengan kualitas barang,negative
+415,Harga cukup wajar untuk kualitas ini,neutral
+416,Tempat yang indah untuk berlibur,positive
+417,Aplikasi ini sulit digunakan,negative
+418,Tidak ada yang istimewa dari produk ini,neutral
+419,Pengalaman berbelanja yang menyenangkan,positive
+420,Saya sangat senang dengan produk ini,positive
+421,Film ini sangat membosankan dan buruk,negative
+422,Makanan di restoran itu biasa saja,neutral
+423,Pelayanan yang luar biasa memuaskan,positive
+424,Sangat kecewa dengan kualitas barang,negative
+425,Harga cukup wajar untuk kualitas ini,neutral
+426,Tempat yang indah untuk berlibur,positive
+427,Aplikasi ini sulit digunakan,negative
+428,Tidak ada yang istimewa dari produk ini,neutral
+429,Pengalaman berbelanja yang menyenangkan,positive
+430,Saya sangat senang dengan produk ini,positive
+431,Film ini sangat membosankan dan buruk,negative
+432,Makanan di restoran itu biasa saja,neutral
+433,Pelayanan yang luar biasa memuaskan,positive
+434,Sangat kecewa dengan kualitas barang,negative
+435,Harga cukup wajar untuk kualitas ini,neutral
+436,Tempat yang indah untuk berlibur,positive
+437,Aplikasi ini sulit digunakan,negative
+438,Tidak ada yang istimewa dari produk ini,neutral
+439,Pengalaman berbelanja yang menyenangkan,positive
+440,Saya sangat senang dengan produk ini,positive
+441,Film ini sangat membosankan dan buruk,negative
+442,Makanan di restoran itu biasa saja,neutral
+443,Pelayanan yang luar biasa memuaskan,positive
+444,Sangat kecewa dengan kualitas barang,negative
+445,Harga cukup wajar untuk kualitas ini,neutral
+446,Tempat yang indah untuk berlibur,positive
+447,Aplikasi ini sulit digunakan,negative
+448,Tidak ada yang istimewa dari produk ini,neutral
+449,Pengalaman berbelanja yang menyenangkan,positive
+450,Saya sangat senang dengan produk ini,positive
+451,Film ini sangat membosankan dan buruk,negative
+452,Makanan di restoran itu biasa saja,neutral
+453,Pelayanan yang luar biasa memuaskan,positive
+454,Sangat kecewa dengan kualitas barang,negative
+455,Harga cukup wajar untuk kualitas ini,neutral
+456,Tempat yang indah untuk berlibur,positive
+457,Aplikasi ini sulit digunakan,negative
+458,Tidak ada yang istimewa dari produk ini,neutral
+459,Pengalaman berbelanja yang menyenangkan,positive
+460,Saya sangat senang dengan produk ini,positive
+461,Film ini sangat membosankan dan buruk,negative
+462,Makanan di restoran itu biasa saja,neutral
+463,Pelayanan yang luar biasa memuaskan,positive
+464,Sangat kecewa dengan kualitas barang,negative
+465,Harga cukup wajar untuk kualitas ini,neutral
+466,Tempat yang indah untuk berlibur,positive
+467,Aplikasi ini sulit digunakan,negative
+468,Tidak ada yang istimewa dari produk ini,neutral
+469,Pengalaman berbelanja yang menyenangkan,positive
+470,Saya sangat senang dengan produk ini,positive
+471,Film ini sangat membosankan dan buruk,negative
+472,Makanan di restoran itu biasa saja,neutral
+473,Pelayanan yang luar biasa memuaskan,positive
+474,Sangat kecewa dengan kualitas barang,negative
+475,Harga cukup wajar untuk kualitas ini,neutral
+476,Tempat yang indah untuk berlibur,positive
+477,Aplikasi ini sulit digunakan,negative
+478,Tidak ada yang istimewa dari produk ini,neutral
+479,Pengalaman berbelanja yang menyenangkan,positive
+480,Saya sangat senang dengan produk ini,positive
+481,Film ini sangat membosankan dan buruk,negative
+482,Makanan di restoran itu biasa saja,neutral
+483,Pelayanan yang luar biasa memuaskan,positive
+484,Sangat kecewa dengan kualitas barang,negative
+485,Harga cukup wajar untuk kualitas ini,neutral
+486,Tempat yang indah untuk berlibur,positive
+487,Aplikasi ini sulit digunakan,negative
+488,Tidak ada yang istimewa dari produk ini,neutral
+489,Pengalaman berbelanja yang menyenangkan,positive
+490,Saya sangat senang dengan produk ini,positive
+491,Film ini sangat membosankan dan buruk,negative
+492,Makanan di restoran itu biasa saja,neutral
+493,Pelayanan yang luar biasa memuaskan,positive
+494,Sangat kecewa dengan kualitas barang,negative
+495,Harga cukup wajar untuk kualitas ini,neutral
+496,Tempat yang indah untuk berlibur,positive
+497,Aplikasi ini sulit digunakan,negative
+498,Tidak ada yang istimewa dari produk ini,neutral
+499,Pengalaman berbelanja yang menyenangkan,positive

@@ -1,4 +1,3 @@
-gana*
 here*
 
 .venv
@@ -6,3 +5,5 @@ here*
 
 .env*
 !.env*.example
+
+__pycache__
