@@ -1,0 +1,72 @@
+================================================================================
+LAPORAN AKHIR - TUGAS BESAR 2 IF3270
+IMPLEMENTASI RNN (RECURRENT NEURAL NETWORK)
+================================================================================
+Tanggal Eksperimen: 2025-05-29 02:28:21
+Dataset: NusaX-Sentiment (Bahasa Indonesia)
+
+1. RINGKASAN DATASET
+------------------------------
+   • Ukuran vocabulary: 2,796
+   • Jumlah kelas: 3
+   • Panjang sequence maksimum: 50
+   • Data training: 500 samples
+   • Data validasi: 100 samples
+   • Data testing: 400 samples
+
+2. ANALISIS HYPERPARAMETER
+------------------------------
+2.1 Pengaruh Jumlah Layer RNN:
+     1 layer: F1=0.4979, Acc=0.5275
+     2 layer: F1=0.4860, Acc=0.5175
+     3 layer: F1=0.5071, Acc=0.5500
+     → Terbaik: 3 layer
+
+2.2 Pengaruh Jumlah Unit RNN per Layer:
+     32 unit: F1=0.5279, Acc=0.5525, Params=182,147
+     64 unit: F1=0.4252, Acc=0.4725, Params=187,395
+     128 unit: F1=0.4917, Acc=0.5250, Params=204,035
+     → Terbaik: 32 unit
+
+2.3 Pengaruh Jenis Layer RNN (Bidirectional vs Unidirectional):
+     unidirectional: F1=0.3704, Acc=0.4350
+     bidirectional: F1=0.4874, Acc=0.4950
+     → Terbaik: bidirectional
+
+3. VALIDASI IMPLEMENTASI FROM-SCRATCH
+----------------------------------------
+Perbandingan hasil forward propagation:
+Eksperimen      Max Diff     F1 Diff    Status         
+------------------------------------------------------
+layers          0.000003     0.000000   ✅ VALID
+units           0.000001     0.000000   ✅ VALID
+direction       0.000001     0.000000   ✅ VALID
+
+Status validasi: ✅ BERHASIL
+• Implementasi from-scratch berhasil mereplikasi hasil Keras
+• Forward propagation berfungsi dengan benar
+• Mekanisme loading weights berfungsi dengan baik
+
+4. KONFIGURASI TERBAIK
+-------------------------
+Konfigurasi: 32_units
+F1-Score: 0.5279
+Accuracy: 0.5525
+Parameters: 182,147
+Training Time: 2.6 detik
+
+5. REKOMENDASI AKHIR
+-------------------------
+Berdasarkan hasil eksperimen:
+• Implementasi from-scratch siap untuk produksi
+
+6. STATISTIK PERFORMA
+-------------------------
+• F1-Score terbaik: 0.5279
+• F1-Score rata-rata: 0.4742
+• Standar deviasi: 0.0479
+• Jumlah eksperimen: 8
+
+================================================================================
+EKSPERIMEN SELESAI - IMPLEMENTASI RNN BERHASIL
+================================================================================

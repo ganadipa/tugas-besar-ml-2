@@ -1,0 +1,11 @@
+{
+  "total_experiments": 8,
+  "best_f1_score": 0.527908451919534,
+  "implementation_validated": true,
+  "best_configuration": "32_units",
+  "recommendations": {
+    "layers": null,
+    "units": null,
+    "direction": null
+  }
+}

@@ -1,0 +1,824 @@
+{
+  "experiment_info": {
+    "dataset": {
+      "name": "NusaX-Sentiment (Bahasa Indonesia)",
+      "vocab_size": 2796,
+      "num_classes": 3,
+      "max_length": 50,
+      "train_samples": 500,
+      "valid_samples": 100,
+      "test_samples": 400
+    },
+    "timestamp": "2025-05-29 02:28:21",
+    "configuration": {
+      "vocab_size": 2796,
+      "embedding_dim": 64,
+      "rnn_units": 32,
+      "num_classes": 3,
+      "max_length": 50,
+      "activation": "tanh",
+      "dropout_rate": 0.2,
+      "learning_rate": 0.001,
+      "batch_size": 32,
+      "epochs": 15
+    }
+  },
+  "hyperparameter_analysis": {
+    "layer_count": {
+      "experiments": {
+        "1": {
+          "test_accuracy": 0.5274999737739563,
+          "test_f1_score": 0.49789779459542105,
+          "valid_f1_score": 0.4456600603352809,
+          "training_time": 2.279219388961792,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_layers_1_weights.npz"
+        },
+        "2": {
+          "test_accuracy": 0.5174999833106995,
+          "test_f1_score": 0.4860314737978246,
+          "valid_f1_score": 0.44874011857707513,
+          "training_time": 3.3493387699127197,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 2,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_layers_2_weights.npz"
+        },
+        "3": {
+          "test_accuracy": 0.550000011920929,
+          "test_f1_score": 0.5070834492626893,
+          "valid_f1_score": 0.4479842368618911,
+          "training_time": 4.92199182510376,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 3,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_layers_3_weights.npz"
+        }
+      },
+      "best_config": 3,
+      "analysis": "Best configuration: 3 layers with F1-score 0.5071"
+    },
+    "rnn_units": {
+      "experiments": {
+        "32": {
+          "test_accuracy": 0.5525000095367432,
+          "test_f1_score": 0.527908451919534,
+          "valid_f1_score": 0.48169856459330146,
+          "training_time": 2.5804615020751953,
+          "parameters": 182147,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 32,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_units_32_weights.npz"
+        },
+        "64": {
+          "test_accuracy": 0.4724999964237213,
+          "test_f1_score": 0.42515321182498506,
+          "valid_f1_score": 0.4673638658492607,
+          "training_time": 2.7564382553100586,
+          "parameters": 187395,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_units_64_weights.npz"
+        },
+        "128": {
+          "test_accuracy": 0.5249999761581421,
+          "test_f1_score": 0.491664697507991,
+          "valid_f1_score": 0.5153823953823954,
+          "training_time": 2.6636805534362793,
+          "parameters": 204035,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 128,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_units_128_weights.npz"
+        }
+      },
+      "best_config": 32,
+      "analysis": "Best configuration: 32 units with F1-score 0.5279"
+    },
+    "direction": {
+      "experiments": {
+        "unidirectional": {
+          "test_accuracy": 0.4350000023841858,
+          "test_f1_score": 0.3703575043675073,
+          "valid_f1_score": 0.3688473052487355,
+          "training_time": 2.5118298530578613,
+          "parameters": 187395,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "weights_path": "results/rnn_unidirectional_weights.npz"
+        },
+        "bidirectional": {
+          "test_accuracy": 0.4950000047683716,
+          "test_f1_score": 0.48735650721064844,
+          "valid_f1_score": 0.4501905751905752,
+          "training_time": 3.771710157394409,
+          "parameters": 195843,
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": true
+          },
+          "weights_path": "results/rnn_bidirectional_weights.npz"
+        }
+      },
+      "best_config": "bidirectional",
+      "analysis": "Best configuration: bidirectional with F1-score 0.4874"
+    }
+  },
+  "implementation_validation": {
+    "comparisons": {
+      "layers": {
+        "keras_accuracy": 0.55,
+        "scratch_accuracy": 0.55,
+        "keras_f1": 0.5070834492626893,
+        "scratch_f1": 0.5070834492626893,
+        "max_difference": 2.5033950805664062e-06,
+        "mean_difference": 1.3625714245790732e-07,
+        "prediction_similarity": 1.0,
+        "success": true,
+        "success_level": "very_good",
+        "agreement_rate": 1.0
+      },
+      "units": {
+        "keras_accuracy": 0.5525,
+        "scratch_accuracy": 0.5525,
+        "keras_f1": 0.527908451919534,
+        "scratch_f1": 0.527908451919534,
+        "max_difference": 6.258487701416016e-07,
+        "mean_difference": 9.403253642403797e-08,
+        "prediction_similarity": 1.0,
+        "success": true,
+        "success_level": "excellent",
+        "agreement_rate": 1.0
+      },
+      "direction": {
+        "keras_accuracy": 0.495,
+        "scratch_accuracy": 0.495,
+        "keras_f1": 0.48735650721064844,
+        "scratch_f1": 0.48735650721064844,
+        "max_difference": 6.258487701416016e-07,
+        "mean_difference": 1.053915639204206e-07,
+        "prediction_similarity": 1.0,
+        "success": true,
+        "success_level": "excellent",
+        "agreement_rate": 1.0
+      }
+    },
+    "overall_success": true,
+    "summary": "Implementation validation: PASSED"
+  },
+  "final_analysis": {
+    "best_layers": null,
+    "best_units": null,
+    "best_direction": null,
+    "best_overall": [
+      "32_units",
+      {
+        "model": "<Sequential name=sequential_3, built=True>",
+        "history": {
+          "accuracy": [
+            0.36800000071525574,
+            0.6660000085830688,
+            0.9039999842643738,
+            0.9800000190734863,
+            0.9959999918937683,
+            0.9959999918937683,
+            0.9919999837875366
+          ],
+          "loss": [
+            1.1039515733718872,
+            0.8650683760643005,
+            0.5021914839744568,
+            0.2898854911327362,
+            0.16710975766181946,
+            0.12431750446557999,
+            0.11457403749227524
+          ],
+          "val_accuracy": [
+            0.4099999964237213,
+            0.5199999809265137,
+            0.46000000834465027,
+            0.5099999904632568,
+            0.47999998927116394,
+            0.4699999988079071,
+            0.4300000071525574
+          ],
+          "val_loss": [
+            1.063765048980713,
+            1.0075888633728027,
+            1.1143347024917603,
+            1.131716251373291,
+            1.2196300029754639,
+            1.4020823240280151,
+            1.4558125734329224
+          ]
+        },
+        "test_accuracy": 0.5525000095367432,
+        "test_f1_score": 0.527908451919534,
+        "valid_f1_score": 0.48169856459330146,
+        "weights_path": "results/rnn_units_32_weights.npz",
+        "config": {
+          "vocab_size": 2796,
+          "embedding_dim": 64,
+          "rnn_units": 32,
+          "num_classes": 3,
+          "max_length": 50,
+          "activation": "tanh",
+          "dropout_rate": 0.2,
+          "learning_rate": 0.001,
+          "batch_size": 32,
+          "epochs": 15,
+          "num_rnn_layers": 1,
+          "bidirectional": false
+        },
+        "training_time": 2.5804615020751953
+      }
+    ],
+    "validation_success": true,
+    "all_experiments": [
+      [
+        "32_units",
+        {
+          "model": "<Sequential name=sequential_3, built=True>",
+          "history": {
+            "accuracy": [
+              0.36800000071525574,
+              0.6660000085830688,
+              0.9039999842643738,
+              0.9800000190734863,
+              0.9959999918937683,
+              0.9959999918937683,
+              0.9919999837875366
+            ],
+            "loss": [
+              1.1039515733718872,
+              0.8650683760643005,
+              0.5021914839744568,
+              0.2898854911327362,
+              0.16710975766181946,
+              0.12431750446557999,
+              0.11457403749227524
+            ],
+            "val_accuracy": [
+              0.4099999964237213,
+              0.5199999809265137,
+              0.46000000834465027,
+              0.5099999904632568,
+              0.47999998927116394,
+              0.4699999988079071,
+              0.4300000071525574
+            ],
+            "val_loss": [
+              1.063765048980713,
+              1.0075888633728027,
+              1.1143347024917603,
+              1.131716251373291,
+              1.2196300029754639,
+              1.4020823240280151,
+              1.4558125734329224
+            ]
+          },
+          "test_accuracy": 0.5525000095367432,
+          "test_f1_score": 0.527908451919534,
+          "valid_f1_score": 0.48169856459330146,
+          "weights_path": "results/rnn_units_32_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 32,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "training_time": 2.5804615020751953
+        }
+      ],
+      [
+        "3_layers",
+        {
+          "model": "<Sequential name=sequential_2, built=True>",
+          "history": {
+            "accuracy": [
+              0.40400001406669617,
+              0.5920000076293945,
+              0.7400000095367432,
+              0.8980000019073486,
+              0.972000002861023,
+              0.9879999756813049,
+              0.9679999947547913
+            ],
+            "loss": [
+              1.1370341777801514,
+              0.8979275226593018,
+              0.6210923790931702,
+              0.33156290650367737,
+              0.11358927935361862,
+              0.06383326649665833,
+              0.07481178641319275
+            ],
+            "val_accuracy": [
+              0.4000000059604645,
+              0.5,
+              0.4399999976158142,
+              0.38999998569488525,
+              0.41999998688697815,
+              0.3700000047683716,
+              0.4000000059604645
+            ],
+            "val_loss": [
+              1.0919945240020752,
+              1.0677646398544312,
+              1.2176051139831543,
+              1.541572093963623,
+              1.920857548713684,
+              2.111010789871216,
+              2.3604423999786377
+            ]
+          },
+          "test_accuracy": 0.550000011920929,
+          "test_f1_score": 0.5070834492626893,
+          "valid_f1_score": 0.4479842368618911,
+          "weights_path": "results/rnn_layers_3_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 3,
+            "bidirectional": false
+          },
+          "training_time": 4.92199182510376
+        }
+      ],
+      [
+        "1_layers",
+        {
+          "model": "<Sequential name=sequential, built=True>",
+          "history": {
+            "accuracy": [
+              0.4180000126361847,
+              0.6520000100135803,
+              0.8799999952316284,
+              0.9639999866485596,
+              0.9900000095367432,
+              0.9940000176429749
+            ],
+            "loss": [
+              1.0547208786010742,
+              0.7996708154678345,
+              0.4666154384613037,
+              0.2632570266723633,
+              0.13252241909503937,
+              0.07208443433046341
+            ],
+            "val_accuracy": [
+              0.47999998927116394,
+              0.4699999988079071,
+              0.5199999809265137,
+              0.5600000023841858,
+              0.47999998927116394,
+              0.47999998927116394
+            ],
+            "val_loss": [
+              0.9791505932807922,
+              1.01035475730896,
+              1.0194019079208374,
+              1.1104562282562256,
+              1.3252058029174805,
+              1.385188102722168
+            ]
+          },
+          "test_accuracy": 0.5274999737739563,
+          "test_f1_score": 0.49789779459542105,
+          "valid_f1_score": 0.4456600603352809,
+          "weights_path": "results/rnn_layers_1_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "training_time": 2.279219388961792
+        }
+      ],
+      [
+        "128_units",
+        {
+          "model": "<Sequential name=sequential_5, built=True>",
+          "history": {
+            "accuracy": [
+              0.4580000042915344,
+              0.5320000052452087,
+              0.6639999747276306,
+              0.8700000047683716,
+              0.921999990940094,
+              0.9620000123977661,
+              0.9380000233650208
+            ],
+            "loss": [
+              1.08663010597229,
+              0.9456468820571899,
+              0.7448704242706299,
+              0.41501855850219727,
+              0.2790999412536621,
+              0.1446499079465866,
+              0.2004692703485489
+            ],
+            "val_accuracy": [
+              0.2800000011920929,
+              0.550000011920929,
+              0.550000011920929,
+              0.5,
+              0.5600000023841858,
+              0.5099999904632568,
+              0.4300000071525574
+            ],
+            "val_loss": [
+              1.087281346321106,
+              0.8934701681137085,
+              0.9445498585700989,
+              1.2109107971191406,
+              1.1695899963378906,
+              1.308011770248413,
+              1.3374567031860352
+            ]
+          },
+          "test_accuracy": 0.5249999761581421,
+          "test_f1_score": 0.491664697507991,
+          "valid_f1_score": 0.5153823953823954,
+          "weights_path": "results/rnn_units_128_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 128,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "training_time": 2.6636805534362793
+        }
+      ],
+      [
+        "bidirectional",
+        {
+          "model": "<Sequential name=sequential_7, built=True>",
+          "history": {
+            "accuracy": [
+              0.4300000071525574,
+              0.7160000205039978,
+              0.9120000004768372,
+              0.9480000138282776,
+              0.9539999961853027,
+              0.9959999918937683,
+              0.9959999918937683
+            ],
+            "loss": [
+              1.0562825202941895,
+              0.744171679019928,
+              0.41625162959098816,
+              0.24087104201316833,
+              0.19783389568328857,
+              0.072998046875,
+              0.04754525050520897
+            ],
+            "val_accuracy": [
+              0.46000000834465027,
+              0.4699999988079071,
+              0.4300000071525574,
+              0.5,
+              0.47999998927116394,
+              0.46000000834465027,
+              0.47999998927116394
+            ],
+            "val_loss": [
+              1.0140266418457031,
+              1.0094205141067505,
+              1.1785426139831543,
+              1.2057572603225708,
+              1.1599465608596802,
+              1.2481799125671387,
+              1.1958616971969604
+            ]
+          },
+          "test_accuracy": 0.4950000047683716,
+          "test_f1_score": 0.48735650721064844,
+          "valid_f1_score": 0.4501905751905752,
+          "weights_path": "results/rnn_bidirectional_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": true
+          },
+          "training_time": 3.771710157394409
+        }
+      ],
+      [
+        "2_layers",
+        {
+          "model": "<Sequential name=sequential_1, built=True>",
+          "history": {
+            "accuracy": [
+              0.46399998664855957,
+              0.6000000238418579,
+              0.8240000009536743,
+              0.9559999704360962,
+              0.9900000095367432,
+              0.9980000257492065
+            ],
+            "loss": [
+              1.0388339757919312,
+              0.8403239250183105,
+              0.5344164371490479,
+              0.1966797411441803,
+              0.07610148191452026,
+              0.029754118993878365
+            ],
+            "val_accuracy": [
+              0.5099999904632568,
+              0.4300000071525574,
+              0.5,
+              0.44999998807907104,
+              0.5099999904632568,
+              0.49000000953674316
+            ],
+            "val_loss": [
+              1.0206506252288818,
+              1.0519763231277466,
+              1.1243233680725098,
+              1.3772751092910767,
+              1.4608333110809326,
+              1.7457983493804932
+            ]
+          },
+          "test_accuracy": 0.5174999833106995,
+          "test_f1_score": 0.4860314737978246,
+          "valid_f1_score": 0.44874011857707513,
+          "weights_path": "results/rnn_layers_2_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 2,
+            "bidirectional": false
+          },
+          "training_time": 3.3493387699127197
+        }
+      ],
+      [
+        "64_units",
+        {
+          "model": "<Sequential name=sequential_4, built=True>",
+          "history": {
+            "accuracy": [
+              0.4000000059604645,
+              0.621999979019165,
+              0.7900000214576721,
+              0.9240000247955322,
+              0.9819999933242798,
+              0.9620000123977661,
+              0.8980000019073486
+            ],
+            "loss": [
+              1.074645757675171,
+              0.850199282169342,
+              0.6471673250198364,
+              0.3490891456604004,
+              0.18403877317905426,
+              0.18296074867248535,
+              0.3099744915962219
+            ],
+            "val_accuracy": [
+              0.4300000071525574,
+              0.5199999809265137,
+              0.4300000071525574,
+              0.46000000834465027,
+              0.4300000071525574,
+              0.3400000035762787,
+              0.4099999964237213
+            ],
+            "val_loss": [
+              1.0782510042190552,
+              1.015812635421753,
+              1.1756089925765991,
+              1.2724618911743164,
+              1.5482219457626343,
+              1.6156843900680542,
+              1.6796481609344482
+            ]
+          },
+          "test_accuracy": 0.4724999964237213,
+          "test_f1_score": 0.42515321182498506,
+          "valid_f1_score": 0.4673638658492607,
+          "weights_path": "results/rnn_units_64_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "training_time": 2.7564382553100586
+        }
+      ],
+      [
+        "unidirectional",
+        {
+          "model": "<Sequential name=sequential_6, built=True>",
+          "history": {
+            "accuracy": [
+              0.3959999978542328,
+              0.6579999923706055,
+              0.8479999899864197,
+              0.9100000262260437,
+              0.9779999852180481,
+              0.9980000257492065
+            ],
+            "loss": [
+              1.0754965543746948,
+              0.786267101764679,
+              0.5326205492019653,
+              0.3696165382862091,
+              0.16841188073158264,
+              0.11683249473571777
+            ],
+            "val_accuracy": [
+              0.44999998807907104,
+              0.3499999940395355,
+              0.41999998688697815,
+              0.47999998927116394,
+              0.49000000953674316,
+              0.4300000071525574
+            ],
+            "val_loss": [
+              1.091252326965332,
+              1.1690101623535156,
+              1.3078112602233887,
+              1.158747673034668,
+              1.3307009935379028,
+              1.2881981134414673
+            ]
+          },
+          "test_accuracy": 0.4350000023841858,
+          "test_f1_score": 0.3703575043675073,
+          "valid_f1_score": 0.3688473052487355,
+          "weights_path": "results/rnn_unidirectional_weights.npz",
+          "config": {
+            "vocab_size": 2796,
+            "embedding_dim": 64,
+            "rnn_units": 64,
+            "num_classes": 3,
+            "max_length": 50,
+            "activation": "tanh",
+            "dropout_rate": 0.2,
+            "learning_rate": 0.001,
+            "batch_size": 32,
+            "epochs": 15,
+            "num_rnn_layers": 1,
+            "bidirectional": false
+          },
+          "training_time": 2.5118298530578613
+        }
+      ]
+    ]
+  }
+}
