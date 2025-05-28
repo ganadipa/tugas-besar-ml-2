@@ -10,3 +10,8 @@ class ActivationFunction(ABC):
     @abstractmethod
     def forward(x: np.ndarray) -> np.ndarray:
         pass
+
+    @staticmethod
+    @abstractmethod
+    def backward(dout: np.ndarray, output: np.ndarray) -> np.ndarray:
+        pass

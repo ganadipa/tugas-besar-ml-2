@@ -73,10 +73,10 @@ class DenseLayer(Layer):
         x = self.input_cache
 
         if self.activation is not None:
-            dout = self.activation.forward(dout, self.output_cache)
+            dout = self.activation.backward(dout, self.output_cache)
 
         dx = np.dot(dout, self.W)
-        dw = np.dot(x, dout)
+        dw = np.dot(x.T, dout)
         db = np.sum(dout, axis=0)
 
         return dx, dw, db
