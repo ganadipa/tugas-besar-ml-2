@@ -77,12 +77,21 @@ class SimpleRNNLayer(Layer):
         self.activation = activation
         self.return_sequences = return_sequences
         self.rnn_cell = None
+        
+        # Store weights for loading before build
+        self._pending_weights = None
     
     def build(self, input_shape: Tuple[int, ...]):
         """Build the layer based on input shape"""
         # input_shape: (batch_size, sequence_length, input_size)
         input_size = input_shape[-1]
         self.rnn_cell = SimpleRNNCell(input_size, self.hidden_size, self.activation)
+        
+        # Load pending weights if any
+        if self._pending_weights is not None:
+            print(f"Loading pending weights for {self.name}")
+            self.rnn_cell.set_weights(self._pending_weights)
+            self._pending_weights = None
     
     def forward(self, inputs: np.ndarray) -> np.ndarray:
         """
@@ -120,9 +129,16 @@ class SimpleRNNLayer(Layer):
     
     def get_weights(self) -> Dict[str, np.ndarray]:
         if self.rnn_cell is None:
-            return {}
+            return self._pending_weights or {}
         return self.rnn_cell.get_weights()
     
     def set_weights(self, weights: Dict[str, np.ndarray]):
+        """Set weights for the RNN layer"""
         if self.rnn_cell is not None:
+            # Cell is already built, set weights directly
+            print(f"Setting weights directly for {self.name}: {list(weights.keys())}")
             self.rnn_cell.set_weights(weights)
+        else:
+            # Cell not built yet, store weights for later
+            print(f"Storing pending weights for {self.name}: {list(weights.keys())}")
+            self._pending_weights = weights.copy()

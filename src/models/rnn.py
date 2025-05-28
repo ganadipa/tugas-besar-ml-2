@@ -80,12 +80,59 @@ class RNNModel:
                 weights[layer_name] = layer_weights
         return weights
     
+    def set_training(self, training: bool):
+        """Set training mode for all layers"""
+        for layer in self.layers:
+            if hasattr(layer, 'set_training'):
+                layer.set_training(training)
+
+    def predict(self, inputs: np.ndarray) -> np.ndarray:
+        """Make predictions (ensures inference mode)"""
+        self.set_training(False)
+        return self.forward(inputs)
+
+    def forward(self, inputs: np.ndarray) -> np.ndarray:
+        """
+        Forward propagation through the model
+        
+        Args:
+            inputs: Input tensor
+            
+        Returns:
+            Model output
+        """
+        if not self.built and self.layers:
+            self.build(inputs.shape)
+        
+        x = inputs
+        for layer in self.layers:
+            x = layer.forward(x)
+        
+        return x
+    
     def set_weights(self, weights: Dict[str, Dict[str, np.ndarray]]):
-        """Set all model weights"""
+        """Set all model weights with improved debugging"""
+        print(f"Setting weights for model layers...")
+        print(f"Available weight keys: {list(weights.keys())}")
+        
+        layers_with_weights = []
+        
         for i, layer in enumerate(self.layers):
             layer_name = layer.name or f"layer_{i}"
+            print(f"Processing layer: {layer_name} (type: {type(layer).__name__})")
+            
             if layer_name in weights:
+                print(f"  Found weights for {layer_name}: {list(weights[layer_name].keys())}")
                 layer.set_weights(weights[layer_name])
+                layers_with_weights.append(layer_name)
+            else:
+                print(f"  No weights found for {layer_name}")
+        
+        print(f"Successfully loaded weights for layers: {layers_with_weights}")
+        
+        # Verify weights were loaded by checking get_weights
+        loaded_weights = self.get_weights()
+        print(f"Model now has weights for: {list(loaded_weights.keys())}")
     
     def save_weights(self, filepath: str):
         """Save model weights to file"""
@@ -96,19 +143,73 @@ class RNNModel:
             for weight_name, weight_value in layer_weights.items()
         })
     
+
     def load_weights(self, filepath: str):
         """Load model weights from file"""
         data = np.load(filepath)
         
+        print(f"Loading weights from {filepath}")
+        print(f"Available keys in file: {list(data.keys())}")
+        
         # Reconstruct weights dictionary
         weights = {}
+        
         for key, value in data.items():
-            parts = key.split('_', 1)
-            if len(parts) == 2:
-                layer_name, weight_name = parts
-                if layer_name not in weights:
-                    weights[layer_name] = {}
-                weights[layer_name][weight_name] = value
+            print(f"Processing key: {key}")
+            
+            # Handle the specific patterns we know about
+            if key == 'embedding_embedding_matrix':
+                if 'embedding' not in weights:
+                    weights['embedding'] = {}
+                weights['embedding']['embedding_matrix'] = value
+                print(f"  -> embedding.embedding_matrix")
+                
+            elif key.startswith('rnn_0_'):
+                weight_name = key[6:]  # Remove 'rnn_0_'
+                if 'rnn_0' not in weights:
+                    weights['rnn_0'] = {}
+                weights['rnn_0'][weight_name] = value
+                print(f"  -> rnn_0.{weight_name}")
+                
+            elif key.startswith('rnn_1_'):
+                weight_name = key[6:]  # Remove 'rnn_1_'
+                if 'rnn_1' not in weights:
+                    weights['rnn_1'] = {}
+                weights['rnn_1'][weight_name] = value
+                print(f"  -> rnn_1.{weight_name}")
+                
+            elif key.startswith('rnn_2_'):
+                weight_name = key[6:]  # Remove 'rnn_2_'
+                if 'rnn_2' not in weights:
+                    weights['rnn_2'] = {}
+                weights['rnn_2'][weight_name] = value
+                print(f"  -> rnn_2.{weight_name}")
+                
+            elif key.startswith('bidirectional_rnn_0_'):
+                weight_name = key[20:]  # Remove 'bidirectional_rnn_0_'
+                if 'bidirectional_rnn_0' not in weights:
+                    weights['bidirectional_rnn_0'] = {}
+                weights['bidirectional_rnn_0'][weight_name] = value
+                print(f"  -> bidirectional_rnn_0.{weight_name}")
+                
+            elif key == 'classification_W':
+                if 'classification' not in weights:
+                    weights['classification'] = {}
+                weights['classification']['W'] = value
+                print(f"  -> classification.W")
+                
+            elif key == 'classification_b':
+                if 'classification' not in weights:
+                    weights['classification'] = {}
+                weights['classification']['b'] = value
+                print(f"  -> classification.b")
+                
+            else:
+                print(f"  Warning: Unknown key pattern: {key}")
+        
+        print(f"Final weights structure: {list(weights.keys())}")
+        for layer_name, layer_weights in weights.items():
+            print(f"  {layer_name}: {list(layer_weights.keys())}")
         
         self.set_weights(weights)
     

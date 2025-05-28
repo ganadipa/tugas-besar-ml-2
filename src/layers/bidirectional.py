@@ -1,3 +1,5 @@
+# src/layers/bidirectional.py - FIXED VERSION
+
 import numpy as np
 from typing import Dict
 from layers.base import Layer
@@ -17,6 +19,9 @@ class BidirectionalLayer(Layer):
         # Store kwargs for potential reconstruction
         self.layer_class = layer_class
         self.layer_kwargs = layer_kwargs
+        
+        # Store pending weights for loading before build
+        self._pending_weights = None
     
     def forward(self, inputs: np.ndarray) -> np.ndarray:
         """
@@ -45,6 +50,9 @@ class BidirectionalLayer(Layer):
             return np.concatenate([forward_output, backward_output], axis=-1)
     
     def get_weights(self) -> Dict[str, np.ndarray]:
+        if self._pending_weights is not None:
+            return self._pending_weights
+            
         forward_weights = self.forward_layer.get_weights()
         backward_weights = self.backward_layer.get_weights()
         
@@ -58,6 +66,9 @@ class BidirectionalLayer(Layer):
         return weights
     
     def set_weights(self, weights: Dict[str, np.ndarray]):
+        """Set weights for both forward and backward layers"""
+        print(f"Setting weights for bidirectional layer {self.name}: {list(weights.keys())}")
+        
         forward_weights = {}
         backward_weights = {}
         
@@ -67,5 +78,14 @@ class BidirectionalLayer(Layer):
             elif k.startswith("backward_"):
                 backward_weights[k[9:]] = v  # Remove "backward_" prefix
         
-        self.forward_layer.set_weights(forward_weights)
-        self.backward_layer.set_weights(backward_weights)
+        if forward_weights:
+            print(f"Setting forward weights: {list(forward_weights.keys())}")
+            self.forward_layer.set_weights(forward_weights)
+            
+        if backward_weights:
+            print(f"Setting backward weights: {list(backward_weights.keys())}")
+            self.backward_layer.set_weights(backward_weights)
+            
+        # Store pending weights if layers aren't built yet
+        if not forward_weights and not backward_weights:
+            self._pending_weights = weights.copy()

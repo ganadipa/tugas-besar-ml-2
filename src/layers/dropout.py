@@ -7,8 +7,8 @@ class DropoutLayer(Layer):
     def __init__(self, rate: float = 0.5, name: str = None):
         super().__init__(name)
         self.rate = rate
-        self.training = True  # Flag to track training vs inference mode
-        self.mask = None # Cache for dropout mask
+        self.training = False
+        self.mask = None 
     
     def forward(self, inputs: np.ndarray) -> np.ndarray:
         """
@@ -41,7 +41,9 @@ class DropoutLayer(Layer):
         self.training = training
     
     def set_weights(self, weights):
-        raise NotImplementedError("Not applicable!")
-    
+        """Dropout layer has no weights to set"""
+        pass  # Dropout layers don't have trainable weights
+
     def get_weights(self):
-        raise NotImplementedError("Not applicable!")
+        """Dropout layer has no weights to get"""
+        return {}  # Return empty dict instead of raising error

@@ -15,7 +15,7 @@ class Layer(ABC):
         """Forward propagation through the layer"""
         pass
 
-    @abstractmethod
+    # Dont make this backward just yet
     def backward(self, dout: np.ndarray) -> np.ndarray:
         """Backward propagation through the layer"""
         pass
