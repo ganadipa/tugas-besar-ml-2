@@ -9,6 +9,8 @@ from layers.flatten import Flatten
 from layers.max_pooling2d import MaxPooling2D
 from layers.conv2d import Conv2D
 from layers.base import Layer
+from layers.avg_pooling2d import AveragePooling2D
+from layers.dropout import DropoutLayer
 import keras
 
 class CNNFromScratch:
@@ -77,6 +79,11 @@ class CNNFromScratch:
                 pool_size = tuple(layer_params['pool_size'])
                 self.layers.append(MaxPooling2D(pool_size, name="MaxPooling2D"))
                 print(f"Added MaxPooling2D layer: pool_size={pool_size}")
+
+            elif layer_type == 'AveragePooling2D':
+                pool_size = tuple(layer_params['pool_size'])
+                self.layers.append(AveragePooling2D(pool_size, name='AveragePooling2D'))
+                print(f"Added AveragePooling2D layer: pool_size={pool_size}")
                 
             elif layer_type == 'Flatten':
                 self.layers.append(Flatten(name="Flatten"))
@@ -89,9 +96,9 @@ class CNNFromScratch:
                 print(f"Added Dense layer: units={units}, activation={activation}")
                 
             elif layer_type == 'Dropout':
-                # Skip dropout layers as they don't affect inference
-                print("Skipped Dropout layer (not needed for inference)")
-                continue
+                rate = layer_params['rate']
+                self.layers.append(DropoutLayer(rate, name="Dropout"))
+                print(f"Added Dropout layer: rate={rate}")
                 
             else:
                 print(f"Warning: Unknown layer type {layer_type}, skipping...")
@@ -158,7 +165,7 @@ class CNNFromScratch:
         """Forward propagation through the entire network"""
         for i, layer in enumerate(self.layers):
             x = layer.forward(x)
-            print(f"After layer {i} ({type(layer).__name__}): {x.shape}")
+            # print(f"After layer {i} ({type(layer).__name__}): {x.shape}")
         return x
     
     def backward(self, dout):
@@ -381,10 +388,16 @@ class CNNFromScratch:
         """Save model weights to a file"""
         weights_data = []
         for layer in self.layers:
-            if isinstance(layer, (Conv2D, DenseLayer)):
+            if isinstance(layer, Conv2D):
                 weights_data.append({
                     'weights': layer.weights,
                     'biases': layer.biases,
+                    'layer_type': type(layer).__name__
+                })
+            elif isinstance(layer, DenseLayer):
+                weights_data.append({
+                    'weights': layer.W.T,
+                    'biases': layer.b.T,
                     'layer_type': type(layer).__name__
                 })
         
@@ -558,7 +571,7 @@ def train_from_scratch():
     y_test = y_test[:100]
 
     model = CNNFromScratch()
-    model.load_weights_from_keras('results/cifar10_cnn_model.npz')
+    model.load_weights_from_keras('results/cifar10_cnn_model_2.npz')
 
     history = model.fit(x_train, y_train, x_val, y_val, epochs=10)
 
@@ -581,6 +594,7 @@ if __name__ == "__main__":
 
     # Compare with Keras
     # compare_with_keras()
+
     
     print("\nCNN from scratch implementation completed!")
     print("The model successfully loads weights from the Keras .h5 file")
