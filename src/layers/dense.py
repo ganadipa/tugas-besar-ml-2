@@ -15,6 +15,10 @@ class DenseLayer(Layer):
         self.units = units
         self.activation_name = activation
         self.activation = self._get_activation(activation) if activation else None
+
+        # Cache for backward propagation
+        self.input_cache = None
+        self.output_cache = None
         
         # Weights will be initialized in build()
         self.W = None
@@ -50,6 +54,7 @@ class DenseLayer(Layer):
         Returns:
             Output tensor, shape (batch_size, units)
         """
+        self.input_cache = inputs
         if self.W is None:
             self.build(inputs.shape)
         
@@ -59,8 +64,22 @@ class DenseLayer(Layer):
         # Apply activation if specified
         if self.activation is not None:
             output = self.activation.forward(output)
+
+        self.output_cache = output
         
         return output
+    
+    def backward(self, dout):
+        x = self.input_cache
+
+        if self.activation is not None:
+            dout = self.activation.forward(dout, self.output_cache)
+
+        dx = np.dot(dout, self.W)
+        dw = np.dot(x, dout)
+        db = np.sum(dout, axis=0)
+
+        return dx, dw, db
     
     def get_weights(self) -> Dict[str, np.ndarray]:
         if self.W is None:

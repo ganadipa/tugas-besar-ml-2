@@ -14,6 +14,11 @@ class Layer(ABC):
     def forward(self, inputs: np.ndarray) -> np.ndarray:
         """Forward propagation through the layer"""
         pass
+
+    @abstractmethod
+    def backward(self, dout: np.ndarray) -> np.ndarray:
+        """Backward propagation through the layer"""
+        pass
     
     def get_weights(self) -> Dict[str, np.ndarray]:
         """Get layer weights"""
