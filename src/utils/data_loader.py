@@ -3,30 +3,22 @@ import numpy as np
 import pandas as pd
 import os
 from typing import List, Tuple
-from keras.layers import TextVectorization
 import tensorflow as tf
-import numpy as np
-from typing import Tuple
-
 import keras
 
 class DataLoader:
-    """Data loading and preprocessing pipeline"""
+    """Enhanced data loading and preprocessing pipeline compatible with both Keras and from-scratch models"""
     
     def __init__(self, data_dir: str):
         self.data_dir = data_dir
-        self.preprocessor = TextPreprocessor()
+        self.preprocessor = TextPreprocessor()  # Keep for compatibility
+        self.vectorizer = None  # Keras TextVectorization layer
         self.label_encoder = {}
         self.reverse_label_encoder = {}
         self.num_classes = 0
     
     def load_data(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-        """
-        Load train, validation, and test data
-        
-        Returns:
-            Tuple of (train_df, valid_df, test_df)
-        """
+        """Load train, validation, and test data"""
         train_path = os.path.join(self.data_dir, 'nusax', 'train.csv')
         valid_path = os.path.join(self.data_dir, 'nusax', 'valid.csv')
         test_path = os.path.join(self.data_dir, 'nusax', 'test.csv')
@@ -57,7 +49,6 @@ class DataLoader:
             print(f"  {label}: {idx}")
         
         return encoded_labels
-    
 
     def prepare_data(self, max_vocab_size: int = 10000, max_length: int = 100
                     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, 
@@ -81,19 +72,31 @@ class DataLoader:
         test_texts = test_df['text'].astype(str).tolist()
 
         # Create TextVectorization layer
-        vectorizer = keras.layers.TextVectorization(max_tokens=max_vocab_size,
-                                    output_mode='int',
-                                    output_sequence_length=max_length,
-                                    standardize='lower_and_strip_punctuation',
-                                    split='whitespace')
+        self.vectorizer = keras.layers.TextVectorization(
+            max_tokens=max_vocab_size,
+            output_mode='int',
+            output_sequence_length=max_length,
+            standardize='lower_and_strip_punctuation',
+            split='whitespace'
+        )
 
         # Adapt vectorizer to training texts
-        vectorizer.adapt(train_texts)
+        self.vectorizer.adapt(train_texts)
+
+        # Extract vocabulary information for compatibility with from-scratch model
+        vocab = self.vectorizer.get_vocabulary()
+        self.preprocessor.vocab = {word: i for i, word in enumerate(vocab)}
+        self.preprocessor.reverse_vocab = {i: word for i, word in enumerate(vocab)}
+        self.preprocessor.vocab_size = len(vocab)
+        self.preprocessor.max_length = max_length
+        
+        print(f"Keras vectorizer vocabulary size: {len(vocab)}")
+        print(f"Sample vocabulary: {vocab[:10]}")
 
         # Vectorize datasets
-        X_train = vectorizer(tf.constant(train_texts)).numpy()
-        X_valid = vectorizer(tf.constant(valid_texts)).numpy()
-        X_test = vectorizer(tf.constant(test_texts)).numpy()
+        X_train = self.vectorizer(tf.constant(train_texts)).numpy()
+        X_valid = self.vectorizer(tf.constant(valid_texts)).numpy()
+        X_test = self.vectorizer(tf.constant(test_texts)).numpy()
 
         # Determine label column
         if 'label' in train_df.columns:
@@ -109,6 +112,8 @@ class DataLoader:
                     test_df[label_col].astype(str).tolist())
         unique_labels = sorted(list(set(all_labels)))
         self.label_encoder = {label: idx for idx, label in enumerate(unique_labels)}
+        self.reverse_label_encoder = {idx: label for idx, label in enumerate(unique_labels)}
+        self.num_classes = len(unique_labels)
 
         y_train = np.array([self.label_encoder[str(label)] for label in train_df[label_col]])
         y_valid = np.array([self.label_encoder[str(label)] for label in valid_df[label_col]])
@@ -123,13 +128,6 @@ class DataLoader:
         print(f"  y_test: {y_test.shape}")
 
         return X_train, y_train, X_valid, y_valid, X_test, y_test
-
-    
-    def _process_texts(self, texts: List[str], max_length: int) -> np.ndarray:
-        """Process texts to padded sequences"""
-        sequences = self.preprocessor.texts_to_sequences(texts)
-        padded_sequences = self.preprocessor.pad_sequences(sequences, max_length)
-        return padded_sequences
     
     def save_preprocessor(self, filepath: str):
         """Save preprocessor state"""
@@ -142,6 +140,12 @@ class DataLoader:
             'reverse_label_encoder': self.reverse_label_encoder,
             'num_classes': self.num_classes
         }
+        
+        # Save vectorizer config if available
+        if self.vectorizer is not None:
+            data['vectorizer_config'] = self.vectorizer.get_config()
+            data['vectorizer_vocabulary'] = self.vectorizer.get_vocabulary()
+        
         np.save(filepath, data)
     
     def load_preprocessor(self, filepath: str):
@@ -156,3 +160,24 @@ class DataLoader:
         self.label_encoder = data['label_encoder']
         self.reverse_label_encoder = data['reverse_label_encoder']
         self.num_classes = data['num_classes']
+        
+        # Restore vectorizer if config is available
+        if 'vectorizer_config' in data and 'vectorizer_vocabulary' in data:
+            self.vectorizer = keras.layers.TextVectorization.from_config(data['vectorizer_config'])
+            self.vectorizer.set_vocabulary(data['vectorizer_vocabulary'])
+    
+    def get_vectorizer_for_keras_model(self):
+        """Get the Keras TextVectorization layer for use in Keras models"""
+        if self.vectorizer is not None:
+            return self.vectorizer
+        else:
+            raise ValueError("Keras vectorization is not set up. Call prepare_data() first.")
+    
+    def convert_texts_for_scratch_model(self, texts: List[str]) -> np.ndarray:
+        """Convert texts for use with from-scratch model (ensures compatibility)"""
+        if self.vectorizer is not None:
+            return self.vectorizer(tf.constant(texts)).numpy()
+        else:
+            # Fallback to custom preprocessing if vectorizer not available
+            sequences = self.preprocessor.texts_to_sequences(texts)
+            return self.preprocessor.pad_sequences(sequences, self.preprocessor.max_length)

@@ -1,8 +1,8 @@
 {
   "total_experiments": 8,
-  "best_f1_score": 0.527908451919534,
+  "best_f1_score": 0.543139044680845,
   "implementation_validated": true,
-  "best_configuration": "32_units",
+  "best_configuration": "bidirectional",
   "recommendations": {
     "layers": null,
     "units": null,
