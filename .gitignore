@@ -7,3 +7,5 @@ here*
 !.env*.example
 
 __pycache__
+src/results
+src/src/results
