@@ -5,6 +5,7 @@ from typing import Tuple, Optional, Any, Dict
 
 class Layer(ABC):
     """Abstract base class for all neural network layers"""
+    training: bool = False
     
     def __init__(self, name: str = None):
         self.name = name or self.__class__.__name__
@@ -27,3 +28,7 @@ class Layer(ABC):
     def set_weights(self, weights: Dict[str, np.ndarray]):
         """Set layer weights"""
         pass
+
+    def set_training(self, training: bool):
+        """Set the training mode of the layer"""
+        self.training = training

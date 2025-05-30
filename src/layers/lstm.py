@@ -1,3 +1,5 @@
+# layers/lstm.py - FIXED VERSION
+
 import numpy as np
 from typing import Dict, Tuple
 from layers.base import Layer
@@ -6,28 +8,29 @@ from activation_functions.tanh import Tanh
 from activation_functions.sigmoid import Sigmoid
 
 class LSTMCell:
-    """LSTM cell implementation with forget, input, and output gates"""
+    """LSTM cell implementation with correct gate order matching Keras"""
     
     def __init__(self, input_size: int, hidden_size: int):
         self.input_size = input_size
         self.hidden_size = hidden_size
         
-        # Initialize weights for forget gate
-        self.W_if = np.random.normal(0, 0.1, (hidden_size, input_size)).astype(np.float32)
-        self.W_hf = np.random.normal(0, 0.1, (hidden_size, hidden_size)).astype(np.float32)
-        self.b_f = np.zeros((hidden_size,), dtype=np.float32)
-        
-        # Initialize weights for input gate
+        # Initialize weights using same order as Keras: i, f, c, o
+        # Input gate
         self.W_ii = np.random.normal(0, 0.1, (hidden_size, input_size)).astype(np.float32)
         self.W_hi = np.random.normal(0, 0.1, (hidden_size, hidden_size)).astype(np.float32)
         self.b_i = np.zeros((hidden_size,), dtype=np.float32)
         
-        # Initialize weights for candidate values
+        # Forget gate  
+        self.W_if = np.random.normal(0, 0.1, (hidden_size, input_size)).astype(np.float32)
+        self.W_hf = np.random.normal(0, 0.1, (hidden_size, hidden_size)).astype(np.float32)
+        self.b_f = np.ones((hidden_size,), dtype=np.float32)  # Initialize to 1 like Keras
+        
+        # Cell gate (candidate values)
         self.W_ig = np.random.normal(0, 0.1, (hidden_size, input_size)).astype(np.float32)
         self.W_hg = np.random.normal(0, 0.1, (hidden_size, hidden_size)).astype(np.float32)
         self.b_g = np.zeros((hidden_size,), dtype=np.float32)
         
-        # Initialize weights for output gate
+        # Output gate
         self.W_io = np.random.normal(0, 0.1, (hidden_size, input_size)).astype(np.float32)
         self.W_ho = np.random.normal(0, 0.1, (hidden_size, hidden_size)).astype(np.float32)
         self.b_o = np.zeros((hidden_size,), dtype=np.float32)
@@ -39,7 +42,7 @@ class LSTMCell:
     def forward_step(self, input_t: np.ndarray, hidden_t_prev: np.ndarray, 
                      cell_t_prev: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Forward pass for one time step
+        Forward pass for one time step matching Keras LSTM exactly
         
         Args:
             input_t: Input at time t, shape (batch_size, input_size)
@@ -49,13 +52,6 @@ class LSTMCell:
         Returns:
             Tuple of (new_hidden_state, new_cell_state)
         """
-        # Forget gate
-        f_t = self.sigmoid.forward(
-            np.dot(input_t, self.W_if.T) + 
-            np.dot(hidden_t_prev, self.W_hf.T) + 
-            self.b_f
-        )
-        
         # Input gate
         i_t = self.sigmoid.forward(
             np.dot(input_t, self.W_ii.T) + 
@@ -63,7 +59,14 @@ class LSTMCell:
             self.b_i
         )
         
-        # Candidate values
+        # Forget gate
+        f_t = self.sigmoid.forward(
+            np.dot(input_t, self.W_if.T) + 
+            np.dot(hidden_t_prev, self.W_hf.T) + 
+            self.b_f
+        )
+        
+        # Candidate values (cell gate)
         g_t = self.tanh.forward(
             np.dot(input_t, self.W_ig.T) + 
             np.dot(hidden_t_prev, self.W_hg.T) + 
@@ -87,15 +90,15 @@ class LSTMCell:
     
     def get_weights(self) -> Dict[str, np.ndarray]:
         return {
-            # Forget gate weights
-            "W_if": self.W_if,
-            "W_hf": self.W_hf,
-            "b_f": self.b_f,
             # Input gate weights
             "W_ii": self.W_ii,
             "W_hi": self.W_hi,
             "b_i": self.b_i,
-            # Candidate weights
+            # Forget gate weights
+            "W_if": self.W_if,
+            "W_hf": self.W_hf,
+            "b_f": self.b_f,
+            # Cell gate weights
             "W_ig": self.W_ig,
             "W_hg": self.W_hg,
             "b_g": self.b_g,
@@ -106,29 +109,56 @@ class LSTMCell:
         }
     
     def set_weights(self, weights: Dict[str, np.ndarray]):
-        """Set weights for the LSTM cell"""
-        if "W_if" in weights: self.W_if = weights["W_if"]
-        if "W_hf" in weights: self.W_hf = weights["W_hf"] 
-        if "b_f" in weights: self.b_f = weights["b_f"]
+        """Set weights for the LSTM cell with improved error handling"""
+        print(f"Setting LSTM cell weights: {list(weights.keys())}")
         
-        if "W_ii" in weights: self.W_ii = weights["W_ii"]
-        if "W_hi" in weights: self.W_hi = weights["W_hi"]
-        if "b_i" in weights: self.b_i = weights["b_i"]
+        # Input gate
+        if "W_ii" in weights: 
+            self.W_ii = weights["W_ii"].astype(np.float32)
+            print(f"  Set W_ii: {self.W_ii.shape}")
+        if "W_hi" in weights: 
+            self.W_hi = weights["W_hi"].astype(np.float32)
+            print(f"  Set W_hi: {self.W_hi.shape}")
+        if "b_i" in weights: 
+            self.b_i = weights["b_i"].astype(np.float32)
+            print(f"  Set b_i: {self.b_i.shape}")
         
-        if "W_ig" in weights: self.W_ig = weights["W_ig"]
-        if "W_hg" in weights: self.W_hg = weights["W_hg"]
-        if "b_g" in weights: self.b_g = weights["b_g"]
+        # Forget gate
+        if "W_if" in weights: 
+            self.W_if = weights["W_if"].astype(np.float32)
+            print(f"  Set W_if: {self.W_if.shape}")
+        if "W_hf" in weights: 
+            self.W_hf = weights["W_hf"].astype(np.float32)
+            print(f"  Set W_hf: {self.W_hf.shape}")
+        if "b_f" in weights: 
+            self.b_f = weights["b_f"].astype(np.float32)
+            print(f"  Set b_f: {self.b_f.shape}")
         
-        if "W_io" in weights: self.W_io = weights["W_io"]
-        if "W_ho" in weights: self.W_ho = weights["W_ho"]
-        if "b_o" in weights: self.b_o = weights["b_o"]
+        # Cell gate
+        if "W_ig" in weights: 
+            self.W_ig = weights["W_ig"].astype(np.float32)
+            print(f"  Set W_ig: {self.W_ig.shape}")
+        if "W_hg" in weights: 
+            self.W_hg = weights["W_hg"].astype(np.float32)
+            print(f"  Set W_hg: {self.W_hg.shape}")
+        if "b_g" in weights: 
+            self.b_g = weights["b_g"].astype(np.float32)
+            print(f"  Set b_g: {self.b_g.shape}")
+        
+        # Output gate
+        if "W_io" in weights: 
+            self.W_io = weights["W_io"].astype(np.float32)
+            print(f"  Set W_io: {self.W_io.shape}")
+        if "W_ho" in weights: 
+            self.W_ho = weights["W_ho"].astype(np.float32)
+            print(f"  Set W_ho: {self.W_ho.shape}")
+        if "b_o" in weights: 
+            self.b_o = weights["b_o"].astype(np.float32)
+            print(f"  Set b_o: {self.b_o.shape}")
 
-import numpy as np
-from typing import Dict, Tuple
-from layers.base import Layer
 
 class LSTMLayer(Layer):
-    """LSTM layer implementation"""
+    """LSTM layer implementation with fixed weight loading"""
     
     def __init__(self, hidden_size: int, return_sequences: bool = False, name: str = None):
         super().__init__(name)
@@ -141,7 +171,6 @@ class LSTMLayer(Layer):
     
     def build(self, input_shape: Tuple[int, ...]):
         """Build the layer based on input shape"""
-        # input_shape: (batch_size, sequence_length, input_size)
         input_size = input_shape[-1]
         self.lstm_cell = LSTMCell(input_size, self.hidden_size)
         
@@ -152,16 +181,7 @@ class LSTMLayer(Layer):
             self._pending_weights = None
     
     def forward(self, inputs: np.ndarray) -> np.ndarray:
-        """
-        Forward pass through LSTM layer
-        
-        Args:
-            inputs: Input sequences, shape (batch_size, sequence_length, input_size)
-            
-        Returns:
-            If return_sequences=True: (batch_size, sequence_length, hidden_size)
-            If return_sequences=False: (batch_size, hidden_size)
-        """
+        """Forward pass through LSTM layer"""
         if self.lstm_cell is None:
             self.build(inputs.shape)
         
@@ -198,16 +218,15 @@ class LSTMLayer(Layer):
     def set_weights(self, weights: Dict[str, np.ndarray]):
         """Set weights for the LSTM layer"""
         if self.lstm_cell is not None:
-            # Cell is already built, set weights directly
             print(f"Setting weights directly for {self.name}: {list(weights.keys())}")
             self.lstm_cell.set_weights(weights)
         else:
-            # Cell not built yet, store weights for later
             print(f"Storing pending weights for {self.name}: {list(weights.keys())}")
             self._pending_weights = weights.copy()
 
+
 class BidirectionalLSTMLayer(Layer):
-    """Bidirectional LSTM wrapper"""
+    """Fixed Bidirectional LSTM wrapper"""
     
     def __init__(self, hidden_size: int, return_sequences: bool = False, name: str = None):
         super().__init__(name)
@@ -222,15 +241,7 @@ class BidirectionalLSTMLayer(Layer):
         self._pending_weights = None
     
     def forward(self, inputs: np.ndarray) -> np.ndarray:
-        """
-        Forward pass through bidirectional LSTM layer
-        
-        Args:
-            inputs: Input sequences, shape (batch_size, sequence_length, input_size)
-            
-        Returns:
-            Concatenated forward and backward outputs
-        """
+        """Forward pass through bidirectional LSTM layer"""
         # Forward direction
         forward_output = self.forward_layer.forward(inputs)
         
@@ -287,5 +298,3 @@ class BidirectionalLSTMLayer(Layer):
         # Store pending weights if layers aren't built yet
         if not forward_weights and not backward_weights:
             self._pending_weights = weights.copy()
-
-
