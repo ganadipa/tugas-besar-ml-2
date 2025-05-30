@@ -232,9 +232,6 @@ class CNNFromScratch:
             'val_accuracy': []
         }
         
-        print(f"Training for {epochs} epochs...")
-        print(f"Training samples: {len(x_train)}, Batch size: {batch_size}")
-        
         for epoch in range(epochs):
             epoch_loss = 0
             epoch_accuracy = 0
@@ -307,7 +304,6 @@ class CNNFromScratch:
                 })
         
         np.save(filepath, weights_data)
-        print(f"Weights saved to {filepath}")
 
     def set_training(self, training: bool):
         for layer in self.layers:
@@ -317,7 +313,6 @@ class CNNFromScratch:
     
     def load_weights(self, npz_file_path):
         """Load weights and architecture from .npz file"""
-        print(f"Loading weights and architecture from {npz_file_path}...")
         
         # Load the .npz file
         data = np.load(npz_file_path, allow_pickle=True)
@@ -350,32 +345,26 @@ class CNNFromScratch:
                     input_shape = tuple(input_shape[1:])  # Remove batch dimension
                 
                 self.layers.append(Conv2D(filters, kernel_size, activation, input_shape, name="Conv2D"))
-                print(f"Added Conv2D layer: filters={filters}, kernel_size={kernel_size}, activation={activation}")
                 
             elif layer_type == 'MaxPooling2D':
                 pool_size = tuple(layer_params['pool_size'])
                 self.layers.append(MaxPooling2D(pool_size, name="MaxPooling2D"))
-                print(f"Added MaxPooling2D layer: pool_size={pool_size}")
 
             elif layer_type == 'AveragePooling2D':
                 pool_size = tuple(layer_params['pool_size'])
                 self.layers.append(AveragePooling2D(pool_size, name='AveragePooling2D'))
-                print(f"Added AveragePooling2D layer: pool_size={pool_size}")
                 
             elif layer_type == 'Flatten':
                 self.layers.append(Flatten(name="Flatten"))
-                print("Added Flatten layer")
                 
             elif layer_type == 'Dense':
                 units = layer_params['units']
                 activation = layer_params['activation']
                 self.layers.append(DenseLayer(units, activation, name="DenseLayer"))
-                print(f"Added Dense layer: units={units}, activation={activation}")
                 
             elif layer_type == 'Dropout':
                 rate = layer_params['rate']
                 self.layers.append(DropoutLayer(rate, name="Dropout"))
-                print(f"Added Dropout layer: rate={rate}")
                 
             else:
                 print(f"Warning: Unknown layer type {layer_type}, skipping...")
@@ -390,14 +379,11 @@ class CNNFromScratch:
                 # Conv2D layers have weights and biases
                 layer.set_weights({"W": keras_weights[weight_idx], "b": keras_weights[weight_idx + 1]})
                 weight_idx += 2
-                print(f"Loaded weights for Conv2D layer {i}")
             elif isinstance(layer, DenseLayer):
                 # Dense layers have weights and biases
                 layer.set_weights({"W": keras_weights[weight_idx].T, "b": keras_weights[weight_idx + 1].T})
                 weight_idx += 2
-                print(f"Loaded weights for Dense layer {i}")
         
-        print("All weights and architecture loaded successfully!")
 
 # def test_model():
 #     """Test the from-scratch CNN with CIFAR-10 data"""
