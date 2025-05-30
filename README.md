@@ -1,10 +1,13 @@
 # Tugas Besar II Pembelajaran Mesin
 
+## Overview
+A *from scratch* implementation of CNN, RNN, and LSTM machine learning models.
+
 ## Setup
 
 To get started with this project, follow these steps:
 
-1.  **Clone the repository:**
+1.  **Clone the repository.**
 
 2.  **Create a virtual environment:**
 
@@ -16,11 +19,12 @@ To get started with this project, follow these steps:
     python3 -m venv venv
     ```
 
-    **For Windows:**
+    **For Windows:** 
 
     ```bash
     python -m venv venv
     ```
+    > (note: you may want to just use WSL due to `tensorflow-io-gcs-filesystem==0.37.1`, this dependency isn't supported on Windows and reverting to an older version may require to revert many other libraries)
 
 3.  **Activate the virtual environment:**
 
@@ -54,3 +58,22 @@ To get started with this project, follow these steps:
     ```bash
     pip freeze > requirements.txt
     ```
+
+## Running the Program
+It is recommended to just refer to the `src/playgrounds/` directory. You can find:
+1. `aldy_lstm.ipynb` for the LSTM demo (in the last header section)
+2. `gana_rnn.ipynb` for the RNN demo (in the last header section)
+3. `kristo_cnn.ipynb` for the CNN demo (in the last header section)
+
+Alternatively, you can refer to the respective model class files in `src/models/` to see the individual methods.
+
+## Author
+
+|Nama|NIM|
+|-|-|
+|Renaldy Arief Susanto|13522022|
+|Kristo Anugrah|13522024|
+|Nyoman Ganadipa Narayana|13522066|
+
+## Bonuses Done
+1. Batch size, back propagation, and training for CNN
