@@ -1,7 +1,4 @@
 import numpy as np
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import matplotlib.pyplot as plt
 from typing import List
 from layers.dense import DenseLayer
@@ -12,11 +9,11 @@ from layers.base import Layer
 from layers.avg_pooling2d import AveragePooling2D
 from layers.dropout import DropoutLayer
 import keras
+import json
 
 class CNNFromScratch:
     def __init__(self):
         self.layers: List[Layer] = []
-        self.build_model()
 
         # Training parameters
         self.learning_rate = 0.001
@@ -30,98 +27,6 @@ class CNNFromScratch:
         self.v_weights = []  # Second moment estimates for weights
         self.m_biases = []   # First moment estimates for biases
         self.v_biases = []   # Second moment estimates for biases
-        
-    
-    def build_model(self):
-        """Build the same architecture as the Keras model"""
-        # First Conv2D block
-        pass
-
-    def load_weights_from_keras(self, npz_file_path):
-        """Load weights and architecture from .npz file"""
-        print(f"Loading weights and architecture from {npz_file_path}...")
-        
-        # Load the .npz file
-        data = np.load(npz_file_path, allow_pickle=True)
-        
-        # Extract architecture and reconstruct Keras model
-        architecture = data['architecture'].item()
-        keras_model = keras.models.model_from_json(architecture)
-        
-        # Load weights back into the Keras model
-        weights = [data[f'weight_{i}'] for i in range(len([k for k in data.keys() if k.startswith('weight_')]))]
-        keras_model.set_weights(weights)
-        
-        # Parse the architecture and build our custom layers
-        import json
-        config = json.loads(architecture)
-        
-        # Clear existing layers
-        self.layers = []
-        
-        # Build layers from config
-        for layer_config in config['config']['layers']:
-            layer_type = layer_config['class_name']
-            layer_params = layer_config['config']
-            
-            if layer_type == 'Conv2D':
-                filters = layer_params['filters']
-                kernel_size = tuple(layer_params['kernel_size'])
-                activation = layer_params['activation']
-                input_shape = layer_params.get('batch_input_shape')
-                if input_shape:
-                    input_shape = tuple(input_shape[1:])  # Remove batch dimension
-                
-                self.layers.append(Conv2D(filters, kernel_size, activation, input_shape, name="Conv2D"))
-                print(f"Added Conv2D layer: filters={filters}, kernel_size={kernel_size}, activation={activation}")
-                
-            elif layer_type == 'MaxPooling2D':
-                pool_size = tuple(layer_params['pool_size'])
-                self.layers.append(MaxPooling2D(pool_size, name="MaxPooling2D"))
-                print(f"Added MaxPooling2D layer: pool_size={pool_size}")
-
-            elif layer_type == 'AveragePooling2D':
-                pool_size = tuple(layer_params['pool_size'])
-                self.layers.append(AveragePooling2D(pool_size, name='AveragePooling2D'))
-                print(f"Added AveragePooling2D layer: pool_size={pool_size}")
-                
-            elif layer_type == 'Flatten':
-                self.layers.append(Flatten(name="Flatten"))
-                print("Added Flatten layer")
-                
-            elif layer_type == 'Dense':
-                units = layer_params['units']
-                activation = layer_params['activation']
-                self.layers.append(DenseLayer(units, activation, name="DenseLayer"))
-                print(f"Added Dense layer: units={units}, activation={activation}")
-                
-            elif layer_type == 'Dropout':
-                rate = layer_params['rate']
-                self.layers.append(DropoutLayer(rate, name="Dropout"))
-                print(f"Added Dropout layer: rate={rate}")
-                
-            else:
-                print(f"Warning: Unknown layer type {layer_type}, skipping...")
-        
-        # Get the weights from the reconstructed model
-        keras_weights = keras_model.get_weights()
-        
-        # Map weights to our layers
-        weight_idx = 0
-        for i, layer in enumerate(self.layers):
-            if isinstance(layer, Conv2D):
-                # Conv2D layers have weights and biases
-                layer.set_weights({"W": keras_weights[weight_idx], "b": keras_weights[weight_idx + 1]})
-                weight_idx += 2
-                print(f"Loaded weights for Conv2D layer {i}")
-            elif isinstance(layer, DenseLayer):
-                # Dense layers have weights and biases
-                layer.set_weights({"W": keras_weights[weight_idx].T, "b": keras_weights[weight_idx + 1].T})
-                weight_idx += 2
-                print(f"Loaded weights for Dense layer {i}")
-        
-        print("All weights and architecture loaded successfully!")
-        self._initialize_adam_parameters()
 
     def _initialize_adam_parameters(self):
         """Initialize Adam optimizer parameters"""
@@ -403,199 +308,276 @@ class CNNFromScratch:
         
         np.save(filepath, weights_data)
         print(f"Weights saved to {filepath}")
-    
-    def load_weights(self, filepath):
-        """Load model weights from a file"""
-        weights_data = np.load(filepath, allow_pickle=True)
-        
-        param_idx = 0
+
+    def set_training(self, training: bool):
         for layer in self.layers:
-            if isinstance(layer, (Conv2D, DenseLayer)):
-                layer.weights = weights_data[param_idx]['weights']
-                layer.biases = weights_data[param_idx]['biases']
-                param_idx += 1
+            if isinstance(layer, DropoutLayer):
+                layer.set_training(training)
+
+    
+    def load_weights(self, npz_file_path):
+        """Load weights and architecture from .npz file"""
+        print(f"Loading weights and architecture from {npz_file_path}...")
         
-        print(f"Weights loaded from {filepath}")
-
-def test_model():
-    """Test the from-scratch CNN with CIFAR-10 data"""
-    # Load CIFAR-10 test data
-    print("Loading CIFAR-10 test data...")
-    (_, _), (x_test, y_test) = keras.datasets.cifar10.load_data()
-    x_test = x_test.astype('float32') / 255.0
-    
-    # Take a small subset for testing
-    test_samples = 100
-    x_test_small = x_test[:test_samples]
-    y_test_small = y_test[:test_samples]
-    
-    # Create and load model
-    print("Creating CNN from scratch...")
-    model = CNNFromScratch()
-    
-    # Load weights from the saved Keras model
-    model.load_weights_from_keras('results/cifar10_cnn_model.npz')
-    
-    # Make predictions
-    print(f"\nTesting on {test_samples} samples...")
-    predictions = model.predict(x_test_small)
-    
-    # Compute metrics
-    loss = model.compute_loss(predictions, y_test_small)
-    accuracy = model.compute_accuracy(predictions, y_test_small)
-    
-    print(f"Test Loss: {loss:.4f}")
-    print(f"Test Accuracy: {accuracy:.4f}")
-    
-    # Show some predictions
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 
-                   'dog', 'frog', 'horse', 'ship', 'truck']
-    
-    print("\nSample Predictions:")
-    for i in range(5):
-        predicted_class = np.argmax(predictions[i])
-        true_class = y_test_small[i][0]
-        confidence = predictions[i][predicted_class]
+        # Load the .npz file
+        data = np.load(npz_file_path, allow_pickle=True)
         
-        print(f"Sample {i+1}: Predicted={class_names[predicted_class]} "
-              f"(confidence: {confidence:.3f}), True={class_names[true_class]}")
-    
-    return model
+        # Extract architecture and reconstruct Keras model
+        architecture = data['architecture'].item()
+        keras_model = keras.models.model_from_json(architecture)
+        
+        # Load weights back into the Keras model
+        weights = [data[f'weight_{i}'] for i in range(len([k for k in data.keys() if k.startswith('weight_')]))]
+        keras_model.set_weights(weights)
+        
+        # Parse the architecture and build our custom layers
+        config = json.loads(architecture)
+        
+        # Clear existing layers
+        self.layers = []
+        
+        # Build layers from config
+        for layer_config in config['config']['layers']:
+            layer_type = layer_config['class_name']
+            layer_params = layer_config['config']
+            
+            if layer_type == 'Conv2D':
+                filters = layer_params['filters']
+                kernel_size = tuple(layer_params['kernel_size'])
+                activation = layer_params['activation']
+                input_shape = layer_params.get('batch_input_shape')
+                if input_shape:
+                    input_shape = tuple(input_shape[1:])  # Remove batch dimension
+                
+                self.layers.append(Conv2D(filters, kernel_size, activation, input_shape, name="Conv2D"))
+                print(f"Added Conv2D layer: filters={filters}, kernel_size={kernel_size}, activation={activation}")
+                
+            elif layer_type == 'MaxPooling2D':
+                pool_size = tuple(layer_params['pool_size'])
+                self.layers.append(MaxPooling2D(pool_size, name="MaxPooling2D"))
+                print(f"Added MaxPooling2D layer: pool_size={pool_size}")
 
-def compare_with_keras():
-    """Compare our implementation with the original Keras model"""
-    print("Comparing with original Keras model...")
-    
-    # Load Keras model
-    # keras_model = keras.models.load_model('results/cifar10_cnn_model.npz')
+            elif layer_type == 'AveragePooling2D':
+                pool_size = tuple(layer_params['pool_size'])
+                self.layers.append(AveragePooling2D(pool_size, name='AveragePooling2D'))
+                print(f"Added AveragePooling2D layer: pool_size={pool_size}")
+                
+            elif layer_type == 'Flatten':
+                self.layers.append(Flatten(name="Flatten"))
+                print("Added Flatten layer")
+                
+            elif layer_type == 'Dense':
+                units = layer_params['units']
+                activation = layer_params['activation']
+                self.layers.append(DenseLayer(units, activation, name="DenseLayer"))
+                print(f"Added Dense layer: units={units}, activation={activation}")
+                
+            elif layer_type == 'Dropout':
+                rate = layer_params['rate']
+                self.layers.append(DropoutLayer(rate, name="Dropout"))
+                print(f"Added Dropout layer: rate={rate}")
+                
+            else:
+                print(f"Warning: Unknown layer type {layer_type}, skipping...")
 
-    # Load the .npz file and reconstruct Keras model
-    data = np.load('results/cifar10_cnn_model.npz', allow_pickle=True)
-    architecture = data['architecture'].item()
-    keras_model = keras.models.model_from_json(architecture)
-    weights = [data[f'weight_{i}'] for i in range(len([k for k in data.keys() if k.startswith('weight_')]))]
-    keras_model.set_weights(weights)
-    
-    # Load test data
-    (_, _), (x_test, y_test) = keras.datasets.cifar10.load_data()
-    x_test = x_test.astype('float32') / 255.0
-    
-    # Take small subset
-    test_samples = 100
-    x_test_small = x_test[:test_samples]
-    y_test_small = y_test[:test_samples]
-    
-    # Get Keras predictions
-    keras_predictions = keras_model.predict(x_test_small, verbose=0)
-    
-    # Get our model predictions
-    our_model = CNNFromScratch()
-    our_model.load_weights_from_keras('results/cifar10_cnn_model.npz')
-    our_predictions = our_model.predict(x_test_small)
-    
-    # Compare predictions
-    print("\nPrediction Comparison (first 3 samples):")
-    for i in range(3):
-        print(f"\nSample {i+1}:")
-        print(f"Keras prediction: {keras_predictions[i][:5]}...")  # First 5 values
-        print(f"Our prediction:   {our_predictions[i][:5]}...")    # First 5 values
-        print(f"Difference:       {np.abs(keras_predictions[i] - our_predictions[i])[:5]}...")
-    
-    # Overall difference
-    max_diff = np.max(np.abs(keras_predictions - our_predictions))
-    mean_diff = np.mean(np.abs(keras_predictions - our_predictions))
-    
-    print(f"\nOverall comparison:")
-    print(f"Maximum difference: {max_diff:.6f}")
-    print(f"Mean difference: {mean_diff:.6f}")
+        # Get the weights from the reconstructed model
+        keras_weights = keras_model.get_weights()
+        
+        # Map weights to our layers
+        weight_idx = 0
+        for i, layer in enumerate(self.layers):
+            if isinstance(layer, Conv2D):
+                # Conv2D layers have weights and biases
+                layer.set_weights({"W": keras_weights[weight_idx], "b": keras_weights[weight_idx + 1]})
+                weight_idx += 2
+                print(f"Loaded weights for Conv2D layer {i}")
+            elif isinstance(layer, DenseLayer):
+                # Dense layers have weights and biases
+                layer.set_weights({"W": keras_weights[weight_idx].T, "b": keras_weights[weight_idx + 1].T})
+                weight_idx += 2
+                print(f"Loaded weights for Dense layer {i}")
+        
+        print("All weights and architecture loaded successfully!")
 
-def load_and_preprocess_data():
-    """Load CIFAR-10 data and preprocess it"""
-    print("Loading CIFAR-10 dataset...")
-    (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+# def test_model():
+#     """Test the from-scratch CNN with CIFAR-10 data"""
+#     # Load CIFAR-10 test data
+#     print("Loading CIFAR-10 test data...")
+#     (_, _), (x_test, y_test) = keras.datasets.cifar10.load_data()
+#     x_test = x_test.astype('float32') / 255.0
     
-    # Normalize pixel values to [0, 1]
-    x_train = x_train.astype('float32') / 255.0
-    x_test = x_test.astype('float32') / 255.0
+#     # Take a small subset for testing
+#     test_samples = 100
+#     x_test_small = x_test[:test_samples]
+#     y_test_small = y_test[:test_samples]
     
-    # Create validation split (4:1 ratio as requested)
-    # Split training data: 80% train, 20% validation
-    split_idx = int(0.8 * len(x_train))
+#     # Create and load model
+#     print("Creating CNN from scratch...")
+#     model = CNNFromScratch()
     
-    x_val = x_train[split_idx:]
-    y_val = y_train[split_idx:]
-    x_train = x_train[:split_idx]
-    y_train = y_train[:split_idx]
+#     # Load weights from the saved Keras model
+#     model.load_weights('results/cifar10_cnn_model.npz')
     
-    print(f"Training set: {x_train.shape[0]} samples")
-    print(f"Validation set: {x_val.shape[0]} samples")
-    print(f"Test set: {x_test.shape[0]} samples")
+#     # Make predictions
+#     print(f"\nTesting on {test_samples} samples...")
+#     predictions = model.predict(x_test_small)
     
-    return (x_train, y_train), (x_val, y_val), (x_test, y_test)
-
-def plot_training_history(history):
-    """Plot training history"""
-    plt.figure(figsize=(12, 4))
+#     # Compute metrics
+#     loss = model.compute_loss(predictions, y_test_small)
+#     accuracy = model.compute_accuracy(predictions, y_test_small)
     
-    # Plot accuracy
-    plt.subplot(1, 2, 1)
-    plt.plot(history['accuracy'], label='Training Accuracy')
-    plt.plot(history['val_accuracy'], label='Validation Accuracy')
-    plt.title('Model Accuracy')
-    plt.xlabel('Epoch')
-    plt.ylabel('Accuracy')
-    plt.legend()
+#     print(f"Test Loss: {loss:.4f}")
+#     print(f"Test Accuracy: {accuracy:.4f}")
     
-    # Plot loss
-    plt.subplot(1, 2, 2)
-    plt.plot(history['loss'], label='Training Loss')
-    plt.plot(history['val_loss'], label='Validation Loss')
-    plt.title('Model Loss')
-    plt.xlabel('Epoch')
-    plt.ylabel('Loss')
-    plt.legend()
+#     # Show some predictions
+#     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 
+#                    'dog', 'frog', 'horse', 'ship', 'truck']
     
-    plt.tight_layout()
-    plt.show()
+#     print("\nSample Predictions:")
+#     for i in range(5):
+#         predicted_class = np.argmax(predictions[i])
+#         true_class = y_test_small[i][0]
+#         confidence = predictions[i][predicted_class]
+        
+#         print(f"Sample {i+1}: Predicted={class_names[predicted_class]} "
+#               f"(confidence: {confidence:.3f}), True={class_names[true_class]}")
+    
+#     return model
 
-def train_from_scratch():
-    (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_and_preprocess_data()
+# def compare_with_keras():
+#     """Compare our implementation with the original Keras model"""
+#     print("Comparing with original Keras model...")
+    
+#     # Load Keras model
+#     # keras_model = keras.models.load_model('results/cifar10_cnn_model.npz')
 
-    x_train = x_train[:100]
-    y_train = y_train[:100]
+#     # Load the .npz file and reconstruct Keras model
+#     data = np.load('results/cifar10_cnn_model.npz', allow_pickle=True)
+#     architecture = data['architecture'].item()
+#     keras_model = keras.models.model_from_json(architecture)
+#     weights = [data[f'weight_{i}'] for i in range(len([k for k in data.keys() if k.startswith('weight_')]))]
+#     keras_model.set_weights(weights)
+    
+#     # Load test data
+#     (_, _), (x_test, y_test) = keras.datasets.cifar10.load_data()
+#     x_test = x_test.astype('float32') / 255.0
+    
+#     # Take small subset
+#     test_samples = 100
+#     x_test_small = x_test[:test_samples]
+#     y_test_small = y_test[:test_samples]
+    
+#     # Get Keras predictions
+#     keras_predictions = keras_model.predict(x_test_small, verbose=0)
+    
+#     # Get our model predictions
+#     our_model = CNNFromScratch()
+#     our_model.load_weights('results/cifar10_cnn_model.npz')
+#     our_predictions = our_model.predict(x_test_small)
+    
+#     # Compare predictions
+#     print("\nPrediction Comparison (first 3 samples):")
+#     for i in range(3):
+#         print(f"\nSample {i+1}:")
+#         print(f"Keras prediction: {keras_predictions[i][:5]}...")  # First 5 values
+#         print(f"Our prediction:   {our_predictions[i][:5]}...")    # First 5 values
+#         print(f"Difference:       {np.abs(keras_predictions[i] - our_predictions[i])[:5]}...")
+    
+#     # Overall difference
+#     max_diff = np.max(np.abs(keras_predictions - our_predictions))
+#     mean_diff = np.mean(np.abs(keras_predictions - our_predictions))
+    
+#     print(f"\nOverall comparison:")
+#     print(f"Maximum difference: {max_diff:.6f}")
+#     print(f"Mean difference: {mean_diff:.6f}")
 
-    x_val = x_val[:100]
-    y_val = y_val[:100]
+# def load_and_preprocess_data():
+#     """Load CIFAR-10 data and preprocess it"""
+#     print("Loading CIFAR-10 dataset...")
+#     (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+    
+#     # Normalize pixel values to [0, 1]
+#     x_train = x_train.astype('float32') / 255.0
+#     x_test = x_test.astype('float32') / 255.0
+    
+#     # Create validation split (4:1 ratio as requested)
+#     # Split training data: 80% train, 20% validation
+#     split_idx = int(0.8 * len(x_train))
+    
+#     x_val = x_train[split_idx:]
+#     y_val = y_train[split_idx:]
+#     x_train = x_train[:split_idx]
+#     y_train = y_train[:split_idx]
+    
+#     print(f"Training set: {x_train.shape[0]} samples")
+#     print(f"Validation set: {x_val.shape[0]} samples")
+#     print(f"Test set: {x_test.shape[0]} samples")
+    
+#     return (x_train, y_train), (x_val, y_val), (x_test, y_test)
 
-    x_test = x_test[:100]
-    y_test = y_test[:100]
+# def plot_training_history(history):
+#     """Plot training history"""
+#     plt.figure(figsize=(12, 4))
+    
+#     # Plot accuracy
+#     plt.subplot(1, 2, 1)
+#     plt.plot(history['accuracy'], label='Training Accuracy')
+#     plt.plot(history['val_accuracy'], label='Validation Accuracy')
+#     plt.title('Model Accuracy')
+#     plt.xlabel('Epoch')
+#     plt.ylabel('Accuracy')
+#     plt.legend()
+    
+#     # Plot loss
+#     plt.subplot(1, 2, 2)
+#     plt.plot(history['loss'], label='Training Loss')
+#     plt.plot(history['val_loss'], label='Validation Loss')
+#     plt.title('Model Loss')
+#     plt.xlabel('Epoch')
+#     plt.ylabel('Loss')
+#     plt.legend()
+    
+#     plt.tight_layout()
+#     plt.show()
 
-    model = CNNFromScratch()
-    model.load_weights_from_keras('results/cifar10_cnn_model_2.npz')
+# def train_from_scratch():
+#     (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_and_preprocess_data()
 
-    history = model.fit(x_train, y_train, x_val, y_val, epochs=10)
+#     x_train = x_train[:100]
+#     y_train = y_train[:100]
 
-    plot_training_history(history)
+#     x_val = x_val[:100]
+#     y_val = y_val[:100]
 
-    # Evaluate performance
-    test_loss, test_accuracy = model.validate(x_test, y_test)
+#     x_test = x_test[:100]
+#     y_test = y_test[:100]
 
-    print(f"Test accuracy: {test_accuracy:.4f}")
-    print(f"Test loss: {test_loss:.4f}")
+#     model = CNNFromScratch()
+#     model.load_weights('results/cifar10_cnn_model_2.npz')
 
-    # Save trained weights
-    model.save_weights('my_trained_model.npy')
+#     history = model.fit(x_train, y_train, x_val, y_val, epochs=10)
 
-if __name__ == "__main__":
-    # Test the implementation
-    # model = test_model()
+#     plot_training_history(history)
 
-    train_from_scratch()
+#     # Evaluate performance
+#     test_loss, test_accuracy = model.validate(x_test, y_test)
 
-    # Compare with Keras
-    # compare_with_keras()
+#     print(f"Test accuracy: {test_accuracy:.4f}")
+#     print(f"Test loss: {test_loss:.4f}")
+
+#     # Save trained weights
+#     model.save_weights('my_trained_model.npy')
+
+# if __name__ == "__main__":
+#     # Test the implementation
+#     # model = test_model()
+
+#     train_from_scratch()
+
+#     # Compare with Keras
+#     # compare_with_keras()
 
     
-    print("\nCNN from scratch implementation completed!")
-    print("The model successfully loads weights from the Keras .h5 file")
-    print("and performs inference with the same architecture.")
+#     print("\nCNN from scratch implementation completed!")
+#     print("The model successfully loads weights from the Keras .h5 file")
+#     print("and performs inference with the same architecture.")
