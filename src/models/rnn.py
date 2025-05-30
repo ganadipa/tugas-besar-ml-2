@@ -2,7 +2,7 @@ import numpy as np
 from typing import List, Dict, Any, Optional, Tuple
 from layers.base import Layer
 from layers.embedding import EmbeddingLayer
-from layers.bidirectional import BidirectionalLayer
+from layers.bidirectional_rnn import BidirectionalLayer
 from layers.simple_rnn import SimpleRNNLayer
 from layers.dense import DenseLayer
 from layers.dropout import DropoutLayer

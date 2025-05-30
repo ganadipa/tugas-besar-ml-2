@@ -12,6 +12,6 @@ class ActivationFunction(ABC):
         pass
 
     @staticmethod
-    @abstractmethod
+    # @abstractmethod Commented out by @ganadipa since we will not implement the back prop
     def backward(dout: np.ndarray, output: np.ndarray) -> np.ndarray:
         pass
